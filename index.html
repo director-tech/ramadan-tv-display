@@ -303,7 +303,7 @@
 
         .mode-btn {
             flex: 1;
-            padding: 14px 4px;
+            padding: 14px 20px;
             border: 2px solid var(--light-gray);
             border-radius: 10px;
             background: white;
@@ -799,318 +799,9 @@
             font-weight: 600;
         }
 
-        /* Pre-Event Slideshow */
-        .pre-event-slideshow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: var(--cream);
-            z-index: 500;
-            display: flex;
-            flex-direction: column;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-
-        .pre-event-slideshow.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .slideshow-header {
-            padding: 3% 4% 2%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .slideshow-header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .slideshow-header-left img {
-            height: 50px;
-        }
-
-        .slideshow-header-left .logos-x {
-            font-family: 'Signifier', serif;
-            font-size: 24px;
-            color: var(--slate);
-        }
-
-        .slideshow-title {
-            font-family: 'Signifier', serif;
-            font-size: 2.2vw;
-            font-weight: 500;
-            color: var(--navy);
-            margin-left: 24px;
-            padding-left: 24px;
-            border-left: 3px solid var(--light-gray);
-        }
-
-        .slideshow-time {
-            font-family: 'Matter', sans-serif;
-            font-size: 2.8vw;
-            font-weight: 600;
-            color: var(--navy);
-        }
-
-        .slideshow-subtitle {
-            font-size: 1vw;
-            color: var(--slate);
-            text-align: right;
-        }
-
-        .slideshow-content {
-            flex: 1;
-            padding: 0 4% 3%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .slideshow-slide {
-            position: absolute;
-            top: 15%;
-            left: 4%;
-            right: 4%;
-            bottom: 10%;
-            opacity: 0;
-            transform: translateX(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .slideshow-slide.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .slide-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 30px;
-        }
-
-        .slide-time-badge {
-            background: var(--navy);
-            color: white;
-            font-size: 1.8vw;
-            font-weight: 600;
-            padding: 16px 32px;
-            border-radius: 12px;
-        }
-
-        .slide-title {
-            font-family: 'Signifier', serif;
-            font-size: 4vw;
-            font-weight: 500;
-            color: var(--navy);
-        }
-
-        .slide-description {
-            font-size: 1.5vw;
-            color: var(--slate);
-            margin-top: 20px;
-            max-width: 70%;
-            line-height: 1.6;
-        }
-
-        .slide-items {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 40px;
-            max-width: 80%;
-        }
-
-        .slide-item {
-            background: white;
-            border-radius: 12px;
-            padding: 20px 24px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-            border-left: 4px solid var(--navy);
-        }
-
-        .slide-item-time {
-            font-size: 1vw;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 6px;
-        }
-
-        .slide-item-text {
-            font-size: 1.1vw;
-            color: var(--charcoal);
-        }
-
-        .slideshow-dots {
-            position: absolute;
-            bottom: 4%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-        }
-
-        .slideshow-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--light-gray);
-            transition: all 0.3s ease;
-        }
-
-        .slideshow-dot.active {
-            background: var(--navy);
-            transform: scale(1.2);
-        }
-
-        .slideshow-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 4px;
-            background: var(--navy);
-            width: 0%;
-            transition: width 0.1s linear;
-        }
-
     </style>
 </head>
 <body>
-    <!-- Pre-Event Slideshow (shown before 4:00 PM) -->
-    <div class="pre-event-slideshow" id="preEventSlideshow">
-        <div class="slideshow-header">
-            <div class="slideshow-header-left">
-                <img src="./magr-logo.png" alt="MAGR">
-                <span class="logos-x">&times;</span>
-                <img src="./sahwah-logo.png" alt="Sahwah">
-                <h1 class="slideshow-title">Ramadan Prep Workshop</h1>
-            </div>
-            <div>
-                <div class="slideshow-subtitle">February 7th, 2025</div>
-                <div class="slideshow-time" id="slideshowTime">3:00 PM</div>
-            </div>
-        </div>
-
-        <div class="slideshow-content">
-            <!-- Slide 1: Main Session -->
-            <div class="slideshow-slide active" data-slide="0">
-                <div class="slide-badge">
-                    <span class="slide-time-badge">4:00 – 5:00 PM</span>
-                    <span class="slide-title">Main Session</span>
-                </div>
-                <p class="slide-description">Join us for inspiring talks from our distinguished speakers on preparing spiritually for Ramadan.</p>
-                <div class="slide-items">
-                    <div class="slide-item">
-                        <div class="slide-item-time">4:00 – 4:10 PM</div>
-                        <div class="slide-item-text">Quran Recitation & Introductions</div>
-                    </div>
-                    <div class="slide-item">
-                        <div class="slide-item-time">4:10 – 4:20 PM</div>
-                        <div class="slide-item-text">Sheikh Elghobashy — Spirituality & Preparing</div>
-                    </div>
-                    <div class="slide-item">
-                        <div class="slide-item-time">4:20 – 4:35 PM</div>
-                        <div class="slide-item-text">Sheikh Abdullah — Importance of Quran</div>
-                    </div>
-                    <div class="slide-item">
-                        <div class="slide-item-time">4:35 – 5:00 PM</div>
-                        <div class="slide-item-text">Sheikh Munsif & Sheikh Abdul Rashid</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 2: Break & Prayer -->
-            <div class="slideshow-slide" data-slide="1">
-                <div class="slide-badge">
-                    <span class="slide-time-badge">5:00 – 5:45 PM</span>
-                    <span class="slide-title">Break & Prayer</span>
-                </div>
-                <p class="slide-description">Take a moment to refresh and pray Maghrib together as a community.</p>
-                <div class="slide-items">
-                    <div class="slide-item">
-                        <div class="slide-item-time">5:00 – 5:15 PM</div>
-                        <div class="slide-item-text">Refreshment Break — Coffee & Snacks</div>
-                    </div>
-                    <div class="slide-item">
-                        <div class="slide-item-time">5:15 – 5:45 PM</div>
-                        <div class="slide-item-text">Maghrib Prayer & Sunnah</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 3: Breakout Sessions -->
-            <div class="slideshow-slide" data-slide="2">
-                <div class="slide-badge">
-                    <span class="slide-time-badge">5:45 – 7:30 PM</span>
-                    <span class="slide-title">Breakout Sessions</span>
-                </div>
-                <p class="slide-description">Specialized sessions for different groups — Brothers, Sisters, Youth, and Kids Program.</p>
-                <div class="slide-items">
-                    <div class="slide-item">
-                        <div class="slide-item-time">Brothers</div>
-                        <div class="slide-item-text">Main MAGR Musalla — Health, Goals & Q&A</div>
-                    </div>
-                    <div class="slide-item">
-                        <div class="slide-item-time">Sisters</div>
-                        <div class="slide-item-text">Women's Musalla — Alima Sakina</div>
-                    </div>
-                    <div class="slide-item">
-                        <div class="slide-item-time">Youth Brothers</div>
-                        <div class="slide-item-text">UFC Gym — Sheikh Abdul Rashid & Activities</div>
-                    </div>
-                    <div class="slide-item">
-                        <div class="slide-item-time">Youth Sisters</div>
-                        <div class="slide-item-text">Weekend School — Building Practices</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 4: Closing Program -->
-            <div class="slideshow-slide" data-slide="3">
-                <div class="slide-badge">
-                    <span class="slide-time-badge">7:30 PM – End</span>
-                    <span class="slide-title">Closing Program</span>
-                </div>
-                <p class="slide-description">We conclude with collective dua, Isha prayer, and optional food boxes for purchase.</p>
-                <div class="slide-items">
-                    <div class="slide-item">
-                        <div class="slide-item-time">7:30 – 7:55 PM</div>
-                        <div class="slide-item-text">Closing Remarks & Collective Dua</div>
-                    </div>
-                    <div class="slide-item">
-                        <div class="slide-item-time">7:55 PM</div>
-                        <div class="slide-item-text">Adhan for Isha</div>
-                    </div>
-                    <div class="slide-item">
-                        <div class="slide-item-time">8:00 PM</div>
-                        <div class="slide-item-text">Isha Prayer — Food boxes available</div>
-                    </div>
-                    <div class="slide-item" style="border-left-color: #dc2626;">
-                        <div class="slide-item-time" style="color: #dc2626;">Kids Pickup</div>
-                        <div class="slide-item-text">Pick up children by 7:50 PM</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slideshow-dots">
-            <div class="slideshow-dot active" data-dot="0"></div>
-            <div class="slideshow-dot" data-dot="1"></div>
-            <div class="slideshow-dot" data-dot="2"></div>
-            <div class="slideshow-dot" data-dot="3"></div>
-        </div>
-        <div class="slideshow-progress" id="slideshowProgress"></div>
-    </div>
-
     <div class="container">
         <!-- Header -->
         <header class="header">
@@ -1402,9 +1093,8 @@
         </div>
 
         <div class="time-control-mode">
-            <button class="mode-btn active" id="liveModeBtn" onclick="setLiveMode()">Live</button>
-            <button class="mode-btn" id="slideModeBtn" onclick="setSlideMode()">Slides</button>
-            <button class="mode-btn" id="manualModeBtn" onclick="setManualMode()">Manual</button>
+            <button class="mode-btn active" id="liveTimeBtn" onclick="setLiveTime()">Live Time</button>
+            <button class="mode-btn" id="manualTimeBtn" onclick="setManualTime()">Manual Time</button>
         </div>
 
         <div class="time-slider-container" style="display: none;">
@@ -1451,13 +1141,13 @@
         const CHICAGO_TZ = 'America/Chicago';
 
         // Time control state
-        let appMode = 'live'; // 'live', 'slide', 'manual'
+        let isManualTime = false;
         let manualStartMinutes = 960; // 4:00 PM default for slider
         let manualTimeOffset = 0; // Offset in milliseconds from real time
         let manualStartTimestamp = null; // When manual mode was started
 
         function getChicagoTime() {
-            if (appMode === 'manual' && manualStartTimestamp) {
+            if (isManualTime && manualStartTimestamp) {
                 // Calculate elapsed time since manual mode started
                 const elapsed = Date.now() - manualStartTimestamp;
                 const elapsedMinutes = Math.floor(elapsed / 60000);
@@ -1483,48 +1173,27 @@
             panel.classList.toggle('visible');
         }
 
-        function updateModeUI() {
-            // Reset buttons
-            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector('.time-slider-container').style.display = 'none';
+        function setLiveTime() {
+            isManualTime = false;
+            manualStartTimestamp = null;
+            document.getElementById('liveTimeBtn').classList.add('active');
+            document.getElementById('manualTimeBtn').classList.remove('active');
             document.getElementById('currentTime').classList.remove('manual-mode');
-
-            // Apply state
-            if (appMode === 'live') {
-                document.getElementById('liveModeBtn').classList.add('active');
-            } else if (appMode === 'slide') {
-                document.getElementById('slideModeBtn').classList.add('active');
-            } else if (appMode === 'manual') {
-                document.getElementById('manualModeBtn').classList.add('active');
-                document.querySelector('.time-slider-container').style.display = 'flex';
-                document.getElementById('currentTime').classList.add('manual-mode');
-                if (!manualStartTimestamp) {
-                    document.getElementById('manualTimeStatus').textContent = 'Select a time and click "Set & Start Clock"';
-                }
-            }
+            document.querySelector('.time-slider-container').style.display = 'none';
+            document.getElementById('manualTimeStatus').textContent = '';
             updateAll();
         }
 
-        function setLiveMode() {
-            appMode = 'live';
-            manualStartTimestamp = null;
-            updateModeUI();
-        }
-
-        function setSlideMode() {
-            appMode = 'slide';
-            manualStartTimestamp = null;
-            updateModeUI();
-        }
-
-        function setManualMode() {
-            appMode = 'manual';
-            updateModeUI();
+        function setManualTime() {
+            document.getElementById('manualTimeBtn').classList.add('active');
+            document.getElementById('liveTimeBtn').classList.remove('active');
+            document.getElementById('currentTime').classList.add('manual-mode');
+            document.querySelector('.time-slider-container').style.display = 'flex';
+            document.getElementById('manualTimeStatus').textContent = 'Select a time and click "Set & Start Clock"';
         }
 
         function setManualStartTime() {
-            // Keep mode as manual, just set the timestamp
-            manualStartTimestamp = Date.now();
+            isManualTime = true;
             manualStartTimestamp = Date.now();
             const hours = Math.floor(manualStartMinutes / 60);
             const minutes = manualStartMinutes % 60;
@@ -1717,87 +1386,10 @@
         function updateAll() {
             updateClock();
             updateHighlights();
-            updateSlideshow();
         }
-
-        // Pre-Event Slideshow Logic
-        let currentSlide = 0;
-        const totalSlides = 4;
-        const slideDuration = 7000; // 7 seconds per slide
-        let slideProgress = 0;
-        let lastSlideTime = Date.now();
-
-        function updateSlideshow() {
-            const { totalMinutes } = getChicagoTime();
-            const eventStart = 16 * 60; // 4:00 PM = 960 minutes
-
-            const slideshow = document.getElementById('preEventSlideshow');
-            const slideshowTime = document.getElementById('slideshowTime');
-
-            // Logic: Show if in SLIDE mode OR if in LIVE mode and before 4:00 PM
-            const shouldShowSlides = appMode === 'slide' || (appMode === 'live' && totalMinutes < eventStart);
-
-            if (shouldShowSlides) {
-                slideshow.classList.remove('hidden');
-
-                // Update slideshow clock
-                const { hours, minutes } = getChicagoTime();
-                slideshowTime.textContent = formatTime(hours, minutes);
-
-                // Calculate progress
-                const elapsed = Date.now() - lastSlideTime;
-                slideProgress = (elapsed / slideDuration) * 100;
-
-                // Update progress bar
-                document.getElementById('slideshowProgress').style.width = slideProgress + '%';
-
-                // Advance slide when progress reaches 100%
-                if (elapsed >= slideDuration) {
-                    nextSlide();
-                }
-            } else {
-                slideshow.classList.add('hidden');
-            }
-        }
-
-        function nextSlide() {
-            // Remove active from current slide and dot
-            document.querySelector(`.slideshow-slide[data-slide="${currentSlide}"]`).classList.remove('active');
-            document.querySelector(`.slideshow-dot[data-dot="${currentSlide}"]`).classList.remove('active');
-
-            // Move to next slide (loop back to 0)
-            currentSlide = (currentSlide + 1) % totalSlides;
-
-            // Add active to new slide and dot
-            document.querySelector(`.slideshow-slide[data-slide="${currentSlide}"]`).classList.add('active');
-            document.querySelector(`.slideshow-dot[data-dot="${currentSlide}"]`).classList.add('active');
-
-            // Reset timer and progress
-            lastSlideTime = Date.now();
-            slideProgress = 0;
-        }
-
-        // Allow clicking dots to jump to slide
-        document.querySelectorAll('.slideshow-dot').forEach(dot => {
-            dot.addEventListener('click', () => {
-                const targetSlide = parseInt(dot.dataset.dot);
-                if (targetSlide !== currentSlide) {
-                    document.querySelector(`.slideshow-slide[data-slide="${currentSlide}"]`).classList.remove('active');
-                    document.querySelector(`.slideshow-dot[data-dot="${currentSlide}"]`).classList.remove('active');
-
-                    currentSlide = targetSlide;
-
-                    document.querySelector(`.slideshow-slide[data-slide="${currentSlide}"]`).classList.add('active');
-                    document.querySelector(`.slideshow-dot[data-dot="${currentSlide}"]`).classList.add('active');
-
-                    lastSlideTime = Date.now();
-                    slideProgress = 0;
-                }
-            });
-        });
 
         updateAll();
-        setInterval(updateAll, 100); // Update more frequently for smooth progress bar
+        setInterval(updateAll, 1000);
     </script>
 </body>
 </html>
