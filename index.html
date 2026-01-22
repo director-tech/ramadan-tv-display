@@ -157,11 +157,13 @@
             margin: 0;
             flex: 1;
             min-width: 0;
+            display: block;
         }
 
         .sponsor-line-1,
         .sponsor-line-2,
         .sponsor-line-3 {
+            display: inline;
             background: linear-gradient(to right, #E9D5FF 50%, transparent 50%);
             background-size: 200% 100%;
             background-position: 100% 0;
@@ -244,17 +246,18 @@
         /* Time Control Panel */
         .time-control-panel {
             position: fixed;
-            top: 0;
-            right: 0;
-            width: 400px;
-            height: 100vh;
+            top: 3%;
+            right: 4%;
+            width: 380px;
+            height: calc(100vh - 6%);
             background: white;
-            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+            border-radius: 16px;
+            box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             padding: 30px;
             display: flex;
             flex-direction: column;
-            transform: translateX(100%);
+            transform: translateX(120%);
             transition: transform 0.3s ease;
         }
 
