@@ -1098,7 +1098,7 @@
         </div>
 
         <div class="time-slider-container" style="display: none;">
-            <div class="time-slider-label">Drag to preview schedule at any time:</div>
+            <div class="time-slider-label">Set starting time (clock will continue from here):</div>
             <div class="time-slider-value" id="sliderTimeValue">4:00 PM</div>
             <input type="range" class="time-slider" id="timeSlider" min="960" max="1230" value="960" oninput="onSliderChange(this.value)">
             <div class="time-slider-marks">
@@ -1108,6 +1108,8 @@
                 <span>7:00</span>
                 <span>8:00</span>
             </div>
+            <button class="mode-btn" id="setTimeBtn" onclick="setManualStartTime()" style="margin-top: 15px; background: var(--burgundy); border-color: var(--burgundy); color: white;">Set & Start Clock</button>
+            <div id="manualTimeStatus" style="margin-top: 10px; font-size: 12px; color: var(--slate); text-align: center;"></div>
 
             <div class="time-sections-preview">
                 <div class="time-sections-title">Schedule Sections</div>
@@ -1140,13 +1142,22 @@
 
         // Time control state
         let isManualTime = false;
-        let manualTotalMinutes = 960; // 4:00 PM default
+        let manualStartMinutes = 960; // 4:00 PM default for slider
+        let manualTimeOffset = 0; // Offset in milliseconds from real time
+        let manualStartTimestamp = null; // When manual mode was started
 
         function getChicagoTime() {
-            if (isManualTime) {
-                const hours = Math.floor(manualTotalMinutes / 60);
-                const minutes = manualTotalMinutes % 60;
-                return { hours, minutes, totalMinutes: manualTotalMinutes };
+            if (isManualTime && manualStartTimestamp) {
+                // Calculate elapsed time since manual mode started
+                const elapsed = Date.now() - manualStartTimestamp;
+                const elapsedMinutes = Math.floor(elapsed / 60000);
+                const elapsedSeconds = Math.floor((elapsed % 60000) / 1000);
+
+                const totalMinutes = manualStartMinutes + elapsedMinutes;
+                const hours = Math.floor(totalMinutes / 60);
+                const minutes = (totalMinutes % 60);
+
+                return { hours, minutes, totalMinutes, seconds: elapsedSeconds };
             }
 
             const now = new Date();
@@ -1164,35 +1175,42 @@
 
         function setLiveTime() {
             isManualTime = false;
+            manualStartTimestamp = null;
             document.getElementById('liveTimeBtn').classList.add('active');
             document.getElementById('manualTimeBtn').classList.remove('active');
             document.getElementById('currentTime').classList.remove('manual-mode');
             document.querySelector('.time-slider-container').style.display = 'none';
+            document.getElementById('manualTimeStatus').textContent = '';
             updateAll();
         }
 
         function setManualTime() {
-            isManualTime = true;
             document.getElementById('manualTimeBtn').classList.add('active');
             document.getElementById('liveTimeBtn').classList.remove('active');
             document.getElementById('currentTime').classList.add('manual-mode');
             document.querySelector('.time-slider-container').style.display = 'flex';
+            document.getElementById('manualTimeStatus').textContent = 'Select a time and click "Set & Start Clock"';
+        }
+
+        function setManualStartTime() {
+            isManualTime = true;
+            manualStartTimestamp = Date.now();
+            const hours = Math.floor(manualStartMinutes / 60);
+            const minutes = manualStartMinutes % 60;
+            document.getElementById('manualTimeStatus').textContent =
+                `Clock running from ${formatTime(hours, minutes)}`;
+            document.getElementById('setTimeBtn').textContent = 'Update Start Time';
             updateAll();
         }
 
         function onSliderChange(value) {
-            manualTotalMinutes = parseInt(value);
-            const hours = Math.floor(manualTotalMinutes / 60);
-            const minutes = manualTotalMinutes % 60;
+            manualStartMinutes = parseInt(value);
+            const hours = Math.floor(manualStartMinutes / 60);
+            const minutes = manualStartMinutes % 60;
             document.getElementById('sliderTimeValue').textContent = formatTime(hours, minutes);
 
             // Update section preview in panel
-            updateSectionPreview(manualTotalMinutes);
-
-            // If in manual mode, update the display
-            if (isManualTime) {
-                updateAll();
-            }
+            updateSectionPreview(manualStartMinutes);
         }
 
         function updateSectionPreview(totalMins) {
