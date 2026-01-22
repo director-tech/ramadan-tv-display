@@ -223,12 +223,223 @@
             color: var(--navy);
             white-space: nowrap;
             text-align: right;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .current-time:hover {
+            color: var(--burgundy);
+        }
+
+        .current-time.manual-mode {
+            color: var(--burgundy);
         }
 
         .event-date {
             font-size: 1vw;
             color: var(--slate);
             text-align: right;
+        }
+
+        /* Time Control Panel */
+        .time-control-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .time-control-panel.visible {
+            transform: translateX(0);
+        }
+
+        .time-control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .time-control-title {
+            font-family: 'Signifier', serif;
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        .time-control-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: var(--slate);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .time-control-close:hover {
+            color: var(--navy);
+        }
+
+        .time-control-mode {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            background: white;
+            font-family: 'Matter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--slate);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mode-btn:hover {
+            border-color: var(--navy);
+            color: var(--navy);
+        }
+
+        .mode-btn.active {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: white;
+        }
+
+        .time-slider-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .time-slider-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--slate);
+            margin-bottom: 10px;
+        }
+
+        .time-slider-value {
+            font-family: 'Matter', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--navy);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .time-slider {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--light-gray);
+            border-radius: 4px;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        .time-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--navy);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .time-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .time-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: var(--navy);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .time-slider-marks {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--slate);
+            margin-bottom: 30px;
+        }
+
+        .time-sections-preview {
+            border-top: 2px solid var(--light-gray);
+            padding-top: 20px;
+        }
+
+        .time-sections-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--slate);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .time-section-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            background: var(--light-gray);
+            transition: background 0.2s ease;
+        }
+
+        .time-section-item.active {
+            background: #FFEE8C;
+        }
+
+        .time-section-item.past {
+            opacity: 0.4;
+        }
+
+        .time-section-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--navy);
+            margin-right: 12px;
+        }
+
+        .time-section-item.active .time-section-dot {
+            background: var(--yellow);
+            box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.3);
+        }
+
+        .time-section-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .time-section-range {
+            margin-left: auto;
+            font-size: 12px;
+            color: var(--slate);
         }
 
         /* Column Headers - Inside Breakout Section */
@@ -868,16 +1079,132 @@
         </div>
     </div>
 
+    <!-- Time Control Panel -->
+    <div class="time-control-panel" id="timeControlPanel">
+        <div class="time-control-header">
+            <h2 class="time-control-title">Time Control</h2>
+            <button class="time-control-close" onclick="toggleTimeControl()">&times;</button>
+        </div>
+
+        <div class="time-control-mode">
+            <button class="mode-btn active" id="liveTimeBtn" onclick="setLiveTime()">Live Time</button>
+            <button class="mode-btn" id="manualTimeBtn" onclick="setManualTime()">Manual Time</button>
+        </div>
+
+        <div class="time-slider-container">
+            <div class="time-slider-label">Drag to preview schedule at any time:</div>
+            <div class="time-slider-value" id="sliderTimeValue">4:00 PM</div>
+            <input type="range" class="time-slider" id="timeSlider" min="960" max="1230" value="960" oninput="onSliderChange(this.value)">
+            <div class="time-slider-marks">
+                <span>4:00 PM</span>
+                <span>5:00</span>
+                <span>6:00</span>
+                <span>7:00</span>
+                <span>8:00</span>
+            </div>
+
+            <div class="time-sections-preview">
+                <div class="time-sections-title">Schedule Sections</div>
+                <div class="time-section-item" data-start="960" data-end="1020">
+                    <div class="time-section-dot"></div>
+                    <span class="time-section-name">Main Session</span>
+                    <span class="time-section-range">4:00 – 5:00 PM</span>
+                </div>
+                <div class="time-section-item" data-start="1020" data-end="1065">
+                    <div class="time-section-dot"></div>
+                    <span class="time-section-name">Break & Prayer</span>
+                    <span class="time-section-range">5:00 – 5:45 PM</span>
+                </div>
+                <div class="time-section-item" data-start="1065" data-end="1170">
+                    <div class="time-section-dot"></div>
+                    <span class="time-section-name">Breakout Sessions</span>
+                    <span class="time-section-range">5:45 – 7:30 PM</span>
+                </div>
+                <div class="time-section-item" data-start="1170" data-end="1230">
+                    <div class="time-section-dot"></div>
+                    <span class="time-section-name">Closing Program</span>
+                    <span class="time-section-range">7:30 – 8:00+ PM</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const CHICAGO_TZ = 'America/Chicago';
 
+        // Time control state
+        let isManualTime = false;
+        let manualTotalMinutes = 960; // 4:00 PM default
+
         function getChicagoTime() {
+            if (isManualTime) {
+                const hours = Math.floor(manualTotalMinutes / 60);
+                const minutes = manualTotalMinutes % 60;
+                return { hours, minutes, totalMinutes: manualTotalMinutes };
+            }
+
             const now = new Date();
             const chicagoTime = new Date(now.toLocaleString('en-US', { timeZone: CHICAGO_TZ }));
             const hours = chicagoTime.getHours();
             const minutes = chicagoTime.getMinutes();
             return { hours, minutes, totalMinutes: hours * 60 + minutes };
         }
+
+        // Time Control Panel Functions
+        function toggleTimeControl() {
+            const panel = document.getElementById('timeControlPanel');
+            panel.classList.toggle('visible');
+        }
+
+        function setLiveTime() {
+            isManualTime = false;
+            document.getElementById('liveTimeBtn').classList.add('active');
+            document.getElementById('manualTimeBtn').classList.remove('active');
+            document.getElementById('currentTime').classList.remove('manual-mode');
+            updateAll();
+        }
+
+        function setManualTime() {
+            isManualTime = true;
+            document.getElementById('manualTimeBtn').classList.add('active');
+            document.getElementById('liveTimeBtn').classList.remove('active');
+            document.getElementById('currentTime').classList.add('manual-mode');
+            updateAll();
+        }
+
+        function onSliderChange(value) {
+            manualTotalMinutes = parseInt(value);
+            const hours = Math.floor(manualTotalMinutes / 60);
+            const minutes = manualTotalMinutes % 60;
+            document.getElementById('sliderTimeValue').textContent = formatTime(hours, minutes);
+
+            // Update section preview in panel
+            updateSectionPreview(manualTotalMinutes);
+
+            // If in manual mode, update the display
+            if (isManualTime) {
+                updateAll();
+            }
+        }
+
+        function updateSectionPreview(totalMins) {
+            document.querySelectorAll('.time-section-item').forEach(item => {
+                const start = parseInt(item.dataset.start);
+                const end = parseInt(item.dataset.end);
+                item.classList.remove('active', 'past');
+
+                if (totalMins >= start && totalMins < end) {
+                    item.classList.add('active');
+                } else if (totalMins >= end) {
+                    item.classList.add('past');
+                }
+            });
+        }
+
+        // Click on time to open control panel
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('currentTime').addEventListener('click', toggleTimeControl);
+        });
 
         function formatTime(hours, minutes) {
             const period = hours >= 12 ? 'PM' : 'AM';
