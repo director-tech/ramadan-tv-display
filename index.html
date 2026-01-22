@@ -167,6 +167,8 @@
             background: linear-gradient(to right, #E9D5FF 50%, transparent 50%);
             background-size: 200% 100%;
             background-position: 100% 0;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
         }
 
         .header-sponsor.visible .sponsor-line-1 {
@@ -216,6 +218,7 @@
             display: flex;
             align-items: center;
             gap: 24px;
+            overflow: hidden;
         }
 
         .current-time {
@@ -1094,7 +1097,7 @@
             <button class="mode-btn" id="manualTimeBtn" onclick="setManualTime()">Manual Time</button>
         </div>
 
-        <div class="time-slider-container">
+        <div class="time-slider-container" style="display: none;">
             <div class="time-slider-label">Drag to preview schedule at any time:</div>
             <div class="time-slider-value" id="sliderTimeValue">4:00 PM</div>
             <input type="range" class="time-slider" id="timeSlider" min="960" max="1230" value="960" oninput="onSliderChange(this.value)">
@@ -1164,6 +1167,7 @@
             document.getElementById('liveTimeBtn').classList.add('active');
             document.getElementById('manualTimeBtn').classList.remove('active');
             document.getElementById('currentTime').classList.remove('manual-mode');
+            document.querySelector('.time-slider-container').style.display = 'none';
             updateAll();
         }
 
@@ -1172,6 +1176,7 @@
             document.getElementById('manualTimeBtn').classList.add('active');
             document.getElementById('liveTimeBtn').classList.remove('active');
             document.getElementById('currentTime').classList.add('manual-mode');
+            document.querySelector('.time-slider-container').style.display = 'flex';
             updateAll();
         }
 
