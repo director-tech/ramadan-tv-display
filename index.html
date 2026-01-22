@@ -1501,6 +1501,9 @@
                 // Hide sponsor in slide mode
                 el.headerSponsor.classList.remove('visible');
 
+                // Clear all time-based highlights
+                clearAllHighlights();
+
                 // Update date to show current date
                 updateCurrentDate();
 
@@ -1629,6 +1632,12 @@
         }
 
         function updateCards(totalMinutes) {
+            // In slide mode, don't highlight anything
+            if (isSlideMode) {
+                clearAllHighlights();
+                return;
+            }
+
             const el = getCachedElements();
             const newActiveCards = new Set();
 
@@ -1651,6 +1660,9 @@
         }
 
         function updateUnifiedItems(totalMinutes) {
+            // In slide mode, don't highlight anything
+            if (isSlideMode) return;
+
             const el = getCachedElements();
             const newActiveItems = new Set();
 
@@ -1670,6 +1682,32 @@
             });
 
             previousActiveItems = newActiveItems;
+        }
+
+        function clearAllHighlights() {
+            const el = getCachedElements();
+
+            // Clear card highlights and badges
+            el.cards.forEach(card => {
+                card.classList.remove('active');
+                const badge = card.querySelector('.now-badge');
+                if (badge) badge.remove();
+            });
+
+            // Clear unified item highlights and badges
+            el.unifiedItems.forEach(item => {
+                item.classList.remove('active');
+                const badge = item.querySelector('.now-badge');
+                if (badge) badge.remove();
+            });
+
+            // Clear section highlights
+            el.sections.forEach(section => {
+                section.classList.remove('active', 'past');
+            });
+
+            previousActiveCards = new Set();
+            previousActiveItems = new Set();
         }
 
         function updateSponsor(totalMinutes) {
