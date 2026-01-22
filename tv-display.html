@@ -227,69 +227,6 @@
             text-align: right;
         }
 
-        /* Test Controls */
-        .test-controls {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background: rgba(0,0,0,0.85);
-            color: white;
-            padding: 14px 18px;
-            border-radius: 10px;
-            z-index: 1000;
-            font-size: 12px;
-        }
-
-        .test-controls label {
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .test-controls input {
-            width: 100px;
-            padding: 5px 8px;
-            border-radius: 5px;
-            border: none;
-            font-size: 12px;
-        }
-
-        .test-controls button {
-            margin-top: 8px;
-            margin-right: 4px;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 5px;
-            background: var(--yellow);
-            color: var(--navy);
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 11px;
-        }
-
-        .test-controls .current-test-time {
-            margin-top: 8px;
-            font-weight: 600;
-            color: var(--yellow);
-        }
-
-        .time-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            margin-top: 6px;
-        }
-
-        .time-buttons button {
-            margin: 0;
-            padding: 4px 6px;
-            font-size: 10px;
-        }
-
-        .time-buttons button.active-time {
-            background: #22c55e;
-            color: white;
-        }
-
         /* Column Headers - Fixed (hidden until breakout) */
         .columns-header {
             display: none;
@@ -933,41 +870,10 @@
         </div>
     </div>
 
-    <!-- Test Controls -->
-    <div class="test-controls">
-        <label>Quick Jump:</label>
-        <div class="time-buttons">
-            <button onclick="jumpTo('16:00')">4:00</button>
-            <button onclick="jumpTo('16:15')">4:15</button>
-            <button onclick="jumpTo('16:30')">4:30</button>
-            <button onclick="jumpTo('16:45')">4:45</button>
-            <button onclick="jumpTo('17:00')">5:00</button>
-            <button onclick="jumpTo('17:15')">5:15</button>
-            <button onclick="jumpTo('17:30')">5:30</button>
-            <button onclick="jumpTo('17:45')">5:45</button>
-            <button onclick="jumpTo('18:00')">6:00</button>
-            <button onclick="jumpTo('18:15')">6:15</button>
-            <button onclick="jumpTo('18:30')">6:30</button>
-            <button onclick="jumpTo('18:45')">6:45</button>
-            <button onclick="jumpTo('19:00')">7:00</button>
-            <button onclick="jumpTo('19:15')">7:15</button>
-            <button onclick="jumpTo('19:30')">7:30</button>
-            <button onclick="jumpTo('19:45')">7:45</button>
-            <button onclick="jumpTo('20:00')">8:00</button>
-        </div>
-        <div class="current-test-time" id="testTimeDisplay"></div>
-    </div>
-
     <script>
         const CHICAGO_TZ = 'America/Chicago';
-        let testTimeMinutes = null;
 
         function getChicagoTime() {
-            if (testTimeMinutes !== null) {
-                const hours = Math.floor(testTimeMinutes / 60);
-                const minutes = testTimeMinutes % 60;
-                return { hours, minutes, totalMinutes: testTimeMinutes };
-            }
             const now = new Date();
             const chicagoTime = new Date(now.toLocaleString('en-US', { timeZone: CHICAGO_TZ }));
             const hours = chicagoTime.getHours();
@@ -985,32 +891,6 @@
         function timeToMinutes(timeStr) {
             const [hours, minutes] = timeStr.split(':').map(Number);
             return hours * 60 + minutes;
-        }
-
-        function setTestTime() {
-            const input = document.getElementById('testTimeInput').value;
-            if (input && input.includes(':')) {
-                const [hours, minutes] = input.split(':').map(Number);
-                testTimeMinutes = hours * 60 + minutes;
-                document.getElementById('testTimeDisplay').textContent = `Testing: ${formatTime(hours, minutes)}`;
-                updateAll();
-            }
-        }
-
-        function clearTestTime() {
-            testTimeMinutes = null;
-            document.getElementById('testTimeDisplay').textContent = 'Live mode';
-            document.querySelectorAll('.time-buttons button').forEach(btn => btn.classList.remove('active-time'));
-            updateAll();
-        }
-
-        function jumpTo(timeStr) {
-            const [hours, minutes] = timeStr.split(':').map(Number);
-            testTimeMinutes = hours * 60 + minutes;
-            document.getElementById('testTimeDisplay').textContent = `Testing: ${formatTime(hours, minutes)}`;
-            document.querySelectorAll('.time-buttons button').forEach(btn => btn.classList.remove('active-time'));
-            event.target.classList.add('active-time');
-            updateAll();
         }
 
         function updateClock() {
