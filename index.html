@@ -784,10 +784,7 @@
         .slide-mode-info {
             display: none;
             align-items: center;
-            gap: 20px;
-            margin-left: 24px;
-            padding-left: 24px;
-            border-left: 2px solid var(--light-gray);
+            gap: 30px;
         }
 
         .slide-mode-info.visible {
@@ -795,26 +792,29 @@
         }
 
         .slide-event-details {
-            text-align: right;
+            text-align: center;
+            border-right: 2px solid var(--light-gray);
+            padding-right: 30px;
         }
 
         .slide-event-label {
-            font-size: 0.8vw;
+            font-size: 0.65vw;
             color: var(--slate);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .slide-event-date {
             font-family: 'Signifier', serif;
-            font-size: 1.4vw;
+            font-size: 1.2vw;
             font-weight: 500;
             color: var(--navy);
+            white-space: nowrap;
         }
 
         .slide-event-time {
-            font-size: 1.2vw;
+            font-size: 1vw;
             font-weight: 500;
             color: var(--charcoal);
         }
@@ -822,21 +822,21 @@
         .slide-qr-container {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
 
         .slide-qr {
-            width: 120px;
-            height: 120px;
-            border-radius: 8px;
+            width: 70px;
+            height: 70px;
+            border-radius: 6px;
         }
 
         .slide-qr-text {
-            font-size: 1.1vw;
+            font-size: 0.75vw;
             font-weight: 500;
             color: var(--navy);
-            max-width: 160px;
-            line-height: 1.4;
+            max-width: 90px;
+            line-height: 1.3;
         }
 
         /* In slide mode, hide non-active sections with smooth transition */
@@ -894,14 +894,14 @@
             </div>
             <div class="header-right" id="headerRight">
                 <div class="slide-mode-info" id="slideModeInfo">
-                    <div class="slide-qr-container">
-                        <img src="./Event Registration.png" alt="Register" class="slide-qr">
-                        <div class="slide-qr-text">Scan to register and see full agenda</div>
-                    </div>
                     <div class="slide-event-details">
-                        <div class="slide-event-label">Event Date</div>
+                        <div class="slide-event-label">Event</div>
                         <div class="slide-event-date">February 7th, 2025</div>
                         <div class="slide-event-time">4:00 – 8:00 PM</div>
+                    </div>
+                    <div class="slide-qr-container">
+                        <img src="./Event Registration.png" alt="Register" class="slide-qr">
+                        <div class="slide-qr-text">Scan to register</div>
                     </div>
                 </div>
                 <div class="event-date" id="eventDate">February 7th, 2025</div>
