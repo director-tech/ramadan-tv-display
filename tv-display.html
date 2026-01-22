@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadan Workshop - Live Schedule Display</title>
+    <style>
+        @font-face { font-family: 'Signifier'; src: url('./Signifier-Regular.otf') format('opentype'); font-weight: 400; }
+        @font-face { font-family: 'Signifier'; src: url('./Signifier-Medium.otf') format('opentype'); font-weight: 500; }
+        @font-face { font-family: 'Matter'; src: url('./MatterRegular.otf') format('opentype'); font-weight: 400; }
+        @font-face { font-family: 'Matter'; src: url('./MatterMedium.otf') format('opentype'); font-weight: 500; }
+        @font-face { font-family: 'Matter'; src: url('./MatterSemiBold.otf') format('opentype'); font-weight: 600; }
+        @font-face { font-family: 'Matter'; src: url('./MatterBold.otf') format('opentype'); font-weight: 700; }
+
+        :root {
+            --navy: #1a2744;
+            --burgundy: #722F37;
+            --cream: #FDFCFA;
+            --charcoal: #2D2D2D;
+            --slate: #4A5568;
+            --light-gray: #F0F0F0;
+            --green: #22A866;
+            --purple: #8A68B3;
+            --yellow: #eab308;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Matter', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            padding: 3% 4%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-logos {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-logos img {
+            height: 50px;
+            width: auto;
+        }
+
+        .header-logos-x {
+            font-family: 'Signifier', serif;
+            font-size: 24px;
+            color: var(--slate);
+        }
+
+        .header-title {
+            font-family: 'Signifier', serif;
+            font-size: 2.2vw;
+            font-weight: 500;
+            color: var(--navy);
+            margin-left: 24px;
+            padding-left: 24px;
+            border-left: 3px solid var(--light-gray);
+            white-space: nowrap;
+        }
+
+        .header-alert {
+            margin-left: 24px;
+            padding: 10px 20px;
+            background: var(--navy);
+            color: white;
+            border-radius: 8px;
+            font-size: 1vw;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.4s ease;
+            white-space: nowrap;
+        }
+
+        .header-alert.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .header-alert.warning {
+            background: #dc2626;
+        }
+
+        .header-sponsor {
+            font-family: 'Matter', sans-serif;
+            font-size: 0.85vw;
+            font-style: italic;
+            color: var(--slate);
+            line-height: 1.4;
+            position: relative;
+            display: none;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .sponsor-qr {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+        }
+
+        .sponsor-qr-label {
+            font-size: 0.6vw;
+            color: var(--navy);
+            font-style: normal;
+            white-space: nowrap;
+        }
+
+        .header-sponsor.visible {
+            display: flex;
+            margin-left: 24px;
+            padding-left: 24px;
+            border-left: 2px solid var(--light-gray);
+            max-width: 40vw;
+        }
+
+        .header-sponsor strong {
+            font-style: normal;
+            color: var(--navy);
+        }
+
+        .sponsor-text-container {
+            margin: 0;
+        }
+
+        .sponsor-line-1,
+        .sponsor-line-2,
+        .sponsor-line-3 {
+            background: linear-gradient(to right, #E9D5FF 50%, transparent 50%);
+            background-size: 200% 100%;
+            background-position: 100% 0;
+        }
+
+        .header-sponsor.visible .sponsor-line-1 {
+            animation: textHighlight1 100s ease-out infinite;
+        }
+
+        .header-sponsor.visible .sponsor-line-2 {
+            animation: textHighlight2 100s ease-out infinite;
+        }
+
+        .header-sponsor.visible .sponsor-line-3 {
+            animation: textHighlight3 100s ease-out infinite;
+        }
+
+        @keyframes textHighlight1 {
+            0% { background-position: 100% 0; }
+            1% { background-position: 0% 0; }
+            39% { background-position: 0% 0; }
+            42% { background-position: 100% 0; }
+            100% { background-position: 100% 0; }
+        }
+
+        @keyframes textHighlight2 {
+            0%, 1% { background-position: 100% 0; }
+            2% { background-position: 0% 0; }
+            36% { background-position: 0% 0; }
+            39% { background-position: 100% 0; }
+            100% { background-position: 100% 0; }
+        }
+
+        @keyframes textHighlight3 {
+            0%, 2% { background-position: 100% 0; }
+            3% { background-position: 0% 0; }
+            33% { background-position: 0% 0; }
+            36% { background-position: 100% 0; }
+            100% { background-position: 100% 0; }
+        }
+
+        .sponsor-qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .current-time {
+            font-family: 'Matter', sans-serif;
+            font-size: 2.8vw;
+            font-weight: 600;
+            color: var(--navy);
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .event-date {
+            font-size: 1vw;
+            color: var(--slate);
+            text-align: right;
+        }
+
+        /* Test Controls */
+        .test-controls {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 10px;
+            z-index: 1000;
+            font-size: 12px;
+        }
+
+        .test-controls label {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .test-controls input {
+            width: 100px;
+            padding: 5px 8px;
+            border-radius: 5px;
+            border: none;
+            font-size: 12px;
+        }
+
+        .test-controls button {
+            margin-top: 8px;
+            margin-right: 4px;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            background: var(--yellow);
+            color: var(--navy);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .test-controls .current-test-time {
+            margin-top: 8px;
+            font-weight: 600;
+            color: var(--yellow);
+        }
+
+        .time-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .time-buttons button {
+            margin: 0;
+            padding: 4px 6px;
+            font-size: 10px;
+        }
+
+        .time-buttons button.active-time {
+            background: #22c55e;
+            color: white;
+        }
+
+        /* Column Headers - Fixed (hidden until breakout) */
+        .columns-header {
+            display: none;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        .columns-header.visible {
+            display: grid;
+        }
+
+        /* Unified View (Main Session & Break) */
+        .unified-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 20px;
+        }
+
+        .unified-column {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .unified-column-header {
+            padding: 16px 24px;
+            border-bottom: 3px solid var(--light-gray);
+        }
+
+        .unified-column.everyone .unified-column-header {
+            border-top: 5px solid var(--navy);
+        }
+
+        .unified-column.kids .unified-column-header {
+            border-top: 5px solid var(--green);
+            background: linear-gradient(135deg, rgba(34, 168, 102, 0.08) 0%, rgba(138, 104, 179, 0.08) 100%);
+        }
+
+        .unified-column-title {
+            font-family: 'Signifier', serif;
+            font-size: 1.4vw;
+            font-weight: 500;
+        }
+
+        .unified-column.everyone .unified-column-title { color: var(--navy); }
+        .unified-column.kids .unified-column-title { color: var(--purple); }
+
+        .unified-column-subtitle {
+            font-size: 0.8vw;
+            color: var(--slate);
+            margin-top: 4px;
+        }
+
+        .unified-column-content {
+            padding: 16px 24px;
+        }
+
+        .unified-item {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .unified-item:last-child {
+            border-bottom: none;
+        }
+
+        .unified-item.active {
+            background: #FFEE8C;
+            margin: 0 -24px;
+            padding: 14px 24px;
+            border-radius: 8px;
+        }
+
+        .unified-item.active .now-badge {
+            background: var(--navy);
+            color: white;
+        }
+
+        .unified-item-time {
+            font-size: 0.85vw;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .unified-column.kids .unified-item-time {
+            color: var(--green);
+        }
+
+        .unified-item-speaker {
+            font-family: 'Signifier', serif;
+            font-size: 1vw;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .unified-item-topic {
+            font-size: 0.9vw;
+            color: var(--slate);
+        }
+
+        .unified-column.kids .unified-item-topic {
+            color: var(--purple);
+        }
+
+        .unified-location {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .unified-item .now-badge {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--navy);
+            font-size: 0.6vw;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .column-header {
+            background: white;
+            border-radius: 12px;
+            padding: 14px 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .column-header.brothers { border-top: 4px solid var(--navy); }
+        .column-header.sisters { border-top: 4px solid var(--burgundy); }
+        .column-header.youth-brothers { border-top: 4px solid var(--navy); }
+        .column-header.youth-sisters { border-top: 4px solid var(--burgundy); }
+        .column-header.kids { border-top: 4px solid var(--green); }
+
+        .column-title {
+            font-family: 'Signifier', serif;
+            font-size: 1.4vw;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .column-header.brothers .column-title,
+        .column-header.youth-brothers .column-title { color: var(--navy); }
+        .column-header.sisters .column-title,
+        .column-header.youth-sisters .column-title { color: var(--burgundy); }
+        .column-header.kids .column-title { color: var(--purple); }
+
+        .column-location {
+            font-size: 0.7vw;
+            font-weight: 600;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .column-header.brothers .column-location { background: var(--navy); }
+        .column-header.sisters .column-location { background: var(--burgundy); }
+        .column-header.youth-brothers .column-location { background: var(--navy); }
+        .column-header.youth-sisters .column-location { background: var(--burgundy); }
+        .column-header.kids .column-location { background: var(--green); }
+
+        /* Scroll Container */
+        .scroll-container {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .scroll-content {
+            transition: transform 0.8s ease-out;
+        }
+
+        /* Time Section */
+        .time-section {
+            margin-bottom: 24px;
+        }
+
+        .time-section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .time-section-badge {
+            background: var(--navy);
+            color: white;
+            font-size: 1vw;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 8px;
+        }
+
+        .time-section-title {
+            font-family: 'Signifier', serif;
+            font-size: 1.4vw;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        .time-section.active .time-section-badge {
+            background: #FFEE8C;
+            color: var(--navy);
+        }
+
+        .time-section.past {
+            opacity: 0.35;
+        }
+
+        /* Schedule Grid */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-auto-rows: minmax(70px, auto);
+            gap: 12px;
+        }
+
+        .schedule-grid.breakout-grid {
+            grid-template-rows: repeat(4, minmax(80px, auto));
+        }
+
+        .schedule-grid.closing-grid {
+            grid-template-rows: auto auto auto;
+        }
+
+        /* Schedule Card */
+        .schedule-card {
+            background: white;
+            border-radius: 10px;
+            padding: 12px 14px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            min-height: 70px;
+        }
+
+        .schedule-card.span-2 { grid-row: span 2; }
+        .schedule-card.span-3 { grid-row: span 3; }
+        .schedule-card.span-4 { grid-row: span 4; }
+
+        .schedule-card.empty {
+            background: rgba(240, 240, 240, 0.5);
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--slate);
+            font-size: 0.75vw;
+            font-style: italic;
+        }
+
+        .schedule-card.active {
+            background: #FFEE8C;
+        }
+
+        .schedule-card.active .now-badge {
+            background: var(--navy);
+            color: white;
+        }
+
+        .card-time {
+            font-size: 0.8vw;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .schedule-card.brothers .card-time { color: var(--navy); }
+        .schedule-card.sisters .card-time { color: var(--burgundy); }
+        .schedule-card.youth-brothers .card-time { color: var(--navy); }
+        .schedule-card.youth-sisters .card-time { color: var(--burgundy); }
+        .schedule-card.kids .card-time { color: var(--green); }
+        .schedule-card.shared .card-time { color: var(--navy); }
+
+        .card-speaker {
+            font-family: 'Signifier', serif;
+            font-size: 0.95vw;
+            font-weight: 500;
+            color: var(--charcoal);
+            margin-bottom: 2px;
+        }
+
+        .card-topic {
+            font-size: 0.85vw;
+            color: var(--slate);
+            line-height: 1.3;
+        }
+
+        .card-location {
+            margin-top: 8px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .location-tag {
+            font-size: 0.6vw;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .location-tag.brothers { background: var(--navy); }
+        .location-tag.sisters { background: var(--burgundy); }
+
+        .now-badge {
+            background: var(--yellow);
+            color: var(--navy);
+            font-size: 0.55vw;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+
+        /* Shared Card spans all columns */
+        .schedule-card.shared {
+            grid-column: span 5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .schedule-card.shared-4 {
+            grid-column: span 4;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Alert pickup */
+        .schedule-card.pickup {
+            background: #fef2f2;
+            border: 2px solid #fecaca;
+        }
+
+        .schedule-card.pickup .card-time,
+        .schedule-card.pickup .card-topic {
+            color: #dc2626;
+        }
+
+        .schedule-card.pickup .card-topic {
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="header-logos">
+                    <img src="./magr-logo.png" alt="MAGR">
+                    <span class="header-logos-x">&times;</span>
+                    <img src="./sahwah-logo.png" alt="Sahwah">
+                </div>
+                <h1 class="header-title">Ramadan Prep Workshop</h1>
+                <div class="header-sponsor" id="headerSponsor">
+                    <p class="sponsor-text-container"><span class="sponsor-line-1">This hour is brought to you by the most trusted Muslim-owned pediatric practice in town.</span> <span class="sponsor-line-2"><strong>Dr. Asim Mustafa</strong> has been the childhood doctor of 3 generations of Muslims.</span> <span class="sponsor-line-3">Get your kids up to date on their flu vaccines and physicals.</span></p>
+                    <div class="sponsor-qr-container">
+                        <img src="./adobe-express-qr-code(2).png" alt="Book appointment" class="sponsor-qr">
+                        <span class="sponsor-qr-label">Scan to book</span>
+                    </div>
+                </div>
+                <div class="header-alert" id="headerAlert"></div>
+            </div>
+            <div class="header-right">
+                <div class="event-date">February 7th, 2025</div>
+                <div class="current-time" id="currentTime">4:00 PM</div>
+            </div>
+        </header>
+
+        <!-- Column Headers - Hidden until Breakout -->
+        <div class="columns-header" id="columnsHeader">
+            <div class="column-header brothers">
+                <div class="column-title">Brothers</div>
+                <span class="column-location">Main MAGR Musallah</span>
+            </div>
+            <div class="column-header sisters">
+                <div class="column-title">Sisters</div>
+                <span class="column-location">Women's Musallah</span>
+            </div>
+            <div class="column-header youth-brothers">
+                <div class="column-title">Youth Brothers</div>
+                <span class="column-location">UFC Gym</span>
+            </div>
+            <div class="column-header youth-sisters">
+                <div class="column-title">Youth Sisters</div>
+                <span class="column-location">Weekend School</span>
+            </div>
+            <div class="column-header kids">
+                <div class="column-title">Kids Program</div>
+                <span class="column-location">Small Old Gym</span>
+            </div>
+        </div>
+
+        <!-- Scroll Container -->
+        <div class="scroll-container">
+            <div class="scroll-content" id="scrollContent">
+
+                <!-- 4:00 PM - 5:00 PM Section -->
+                <div class="time-section" id="section-4pm" data-start="16:00" data-end="17:00">
+                    <div class="time-section-header">
+                        <span class="time-section-badge">4:00 – 5:00 PM</span>
+                        <span class="time-section-title">Main Session</span>
+                    </div>
+                    <div class="unified-grid">
+                        <div class="unified-column everyone">
+                            <div class="unified-column-header">
+                                <div class="unified-column-title">Main Session</div>
+                                <div class="unified-column-subtitle">Brothers & Youth Brothers: Main MAGR Musallah · Sisters & Youth Sisters: Women's MAGR Musallah</div>
+                            </div>
+                            <div class="unified-column-content">
+                                <div class="unified-item" data-start="16:00" data-end="16:10">
+                                    <div class="unified-item-time">4:00 – 4:10 PM</div>
+                                    <div class="unified-item-topic">Quran Recitation & Introductions</div>
+                                </div>
+                                <div class="unified-item" data-start="16:10" data-end="16:20">
+                                    <div class="unified-item-time">4:10 – 4:20 PM</div>
+                                    <div class="unified-item-speaker">Sheikh Elghobashy</div>
+                                    <div class="unified-item-topic">Spirituality & Preparing for Ramadan</div>
+                                </div>
+                                <div class="unified-item" data-start="16:20" data-end="16:35">
+                                    <div class="unified-item-time">4:20 – 4:35 PM</div>
+                                    <div class="unified-item-speaker">Sheikh Abdullah</div>
+                                    <div class="unified-item-topic">The Importance of Quran in Ramadan</div>
+                                </div>
+                                <div class="unified-item" data-start="16:35" data-end="16:50">
+                                    <div class="unified-item-time">4:35 – 4:50 PM</div>
+                                    <div class="unified-item-speaker">Sheikh Munsif</div>
+                                    <div class="unified-item-topic">Psychological Benefits of Fasting & Resilience</div>
+                                </div>
+                                <div class="unified-item" data-start="16:50" data-end="17:00">
+                                    <div class="unified-item-time">4:50 – 5:00 PM</div>
+                                    <div class="unified-item-speaker">Sheikh Abdul Rashid</div>
+                                    <div class="unified-item-topic">Common Mistakes & Maximizing Your Time</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="unified-column kids">
+                            <div class="unified-column-header">
+                                <div class="unified-column-title">Kids Program</div>
+                                <div class="unified-column-subtitle">Ages 4-10 · Small Old Gym</div>
+                            </div>
+                            <div class="unified-column-content">
+                                <div class="unified-item" data-start="16:00" data-end="16:30">
+                                    <div class="unified-item-time">4:00 – 4:30 PM</div>
+                                    <div class="unified-item-topic">Welcome & Ice Breaker</div>
+                                </div>
+                                <div class="unified-item" data-start="16:30" data-end="17:30">
+                                    <div class="unified-item-time">4:30 – 5:30 PM</div>
+                                    <div class="unified-item-topic">Storytime with the Author</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5:00 PM - 5:45 PM Section -->
+                <div class="time-section" id="section-5pm" data-start="17:00" data-end="17:45">
+                    <div class="time-section-header">
+                        <span class="time-section-badge">5:00 – 5:45 PM</span>
+                        <span class="time-section-title">Break & Prayer</span>
+                    </div>
+                    <div class="unified-grid">
+                        <div class="unified-column everyone">
+                            <div class="unified-column-header">
+                                <div class="unified-column-title">Break & Prayer</div>
+                                <div class="unified-column-subtitle">Brothers & Youth Brothers: Main MAGR Musallah · Sisters & Youth Sisters: Women's MAGR Musallah</div>
+                            </div>
+                            <div class="unified-column-content">
+                                <div class="unified-item" data-start="17:00" data-end="17:15">
+                                    <div class="unified-item-time">5:00 – 5:15 PM</div>
+                                    <div class="unified-item-topic">Refreshment Break — Coffee & Snacks</div>
+                                </div>
+                                <div class="unified-item" data-start="17:15" data-end="17:45">
+                                    <div class="unified-item-time">5:15 – 5:45 PM</div>
+                                    <div class="unified-item-topic">Maghrib Prayer & Sunnah</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="unified-column kids">
+                            <div class="unified-column-header">
+                                <div class="unified-column-title">Kids Program</div>
+                                <div class="unified-column-subtitle">Ages 4-10 · Small Old Gym</div>
+                            </div>
+                            <div class="unified-column-content">
+                                <div class="unified-item" data-start="17:00" data-end="17:30">
+                                    <div class="unified-item-time">5:00 – 5:30 PM</div>
+                                    <div class="unified-item-topic">Storytime (continues)</div>
+                                </div>
+                                <div class="unified-item" data-start="17:30" data-end="18:00">
+                                    <div class="unified-item-time">5:30 – 6:00 PM</div>
+                                    <div class="unified-item-topic">Pizza Break!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5:45 PM - 7:30 PM Section -->
+                <div class="time-section" id="section-breakout" data-start="17:45" data-end="19:30">
+                    <div class="time-section-header">
+                        <span class="time-section-badge">5:45 – 7:30 PM</span>
+                        <span class="time-section-title">Breakout Sessions</span>
+                    </div>
+                    <div class="schedule-grid breakout-grid">
+                        <!-- Brothers Column -->
+                        <div class="schedule-card brothers" data-start="17:45" data-end="18:05" style="grid-column: 1; grid-row: 1;">
+                            <div class="card-time">5:45 – 6:05 PM</div>
+                            <div class="card-topic">Health, Diet & Fitness Panel</div>
+                        </div>
+                        <div class="schedule-card brothers" data-start="18:05" data-end="18:25" style="grid-column: 1; grid-row: 2;">
+                            <div class="card-time">6:05 – 6:25 PM</div>
+                            <div class="card-speaker">Sheikh Munsif</div>
+                            <div class="card-topic">Mental Well-being & Resilience</div>
+                        </div>
+                        <div class="schedule-card brothers" data-start="18:25" data-end="18:45" style="grid-column: 1; grid-row: 3;">
+                            <div class="card-time">6:25 – 6:45 PM</div>
+                            <div class="card-speaker">Sheikh Uthman</div>
+                            <div class="card-topic">Goal Setting for Ramadan</div>
+                        </div>
+                        <div class="schedule-card brothers" data-start="18:45" data-end="19:30" style="grid-column: 1; grid-row: 4;">
+                            <div class="card-time">6:45 – 7:30 PM</div>
+                            <div class="card-topic">Q&A Panel (All Speakers)</div>
+                        </div>
+
+                        <!-- Sisters Column -->
+                        <div class="schedule-card sisters" data-start="17:45" data-end="18:45" style="grid-column: 2; grid-row: 1 / 4;">
+                            <div class="card-time">5:45 – 6:45 PM</div>
+                            <div class="card-speaker">Alima Sakina</div>
+                            <div class="card-topic">Purifying the Heart</div>
+                        </div>
+                        <div class="schedule-card sisters" data-start="18:45" data-end="19:30" style="grid-column: 2; grid-row: 4;">
+                            <div class="card-time">6:45 – 7:30 PM</div>
+                            <div class="card-speaker">Alima Sakina</div>
+                            <div class="card-topic">Finding Balance & Q&A</div>
+                            <div class="card-topic" style="font-size: 0.65vw; color: var(--slate); margin-top: 4px;">+ Youth Sisters join</div>
+                        </div>
+
+                        <!-- Youth Brothers Column -->
+                        <div class="schedule-card youth-brothers" data-start="17:45" data-end="18:15" style="grid-column: 3; grid-row: 1;">
+                            <div class="card-time">5:45 – 6:15 PM</div>
+                            <div class="card-speaker">Sheikh Abdul Rashid</div>
+                            <div class="card-topic">School, Family & Islam</div>
+                        </div>
+                        <div class="schedule-card youth-brothers" data-start="18:15" data-end="18:45" style="grid-column: 3; grid-row: 2 / 4;">
+                            <div class="card-time">6:15 – 6:45 PM</div>
+                            <div class="card-topic">Interactive Activity</div>
+                        </div>
+                        <div class="schedule-card youth-brothers" data-start="18:45" data-end="19:30" style="grid-column: 3; grid-row: 4;">
+                            <div class="card-time">6:45 – 7:30 PM</div>
+                            <div class="card-topic">Youth Q&A Panel</div>
+                        </div>
+
+                        <!-- Youth Sisters Column -->
+                        <div class="schedule-card youth-sisters" data-start="17:45" data-end="18:30" style="grid-column: 4; grid-row: 1 / 3;">
+                            <div class="card-time">5:45 – 6:30 PM</div>
+                            <div class="card-topic">Lasting Light: Building Practices</div>
+                        </div>
+                        <div class="schedule-card youth-sisters" data-start="18:30" data-end="18:45" style="grid-column: 4; grid-row: 3;">
+                            <div class="card-time">6:30 – 6:45 PM</div>
+                            <div class="card-topic">Intentional Goals</div>
+                        </div>
+                        <div class="schedule-card youth-sisters" data-start="18:45" data-end="19:30" style="grid-column: 4; grid-row: 4;">
+                            <div class="card-time">6:45 – 7:30 PM</div>
+                            <div class="card-speaker">Alima Sakina</div>
+                            <div class="card-topic">Finding Balance & Q&A</div>
+                            <div class="card-topic" style="font-size: 0.65vw; color: var(--slate); margin-top: 4px;">→ Join Sisters at Women's Musallah</div>
+                        </div>
+
+                        <!-- Kids Column -->
+                        <div class="schedule-card kids" data-start="17:45" data-end="18:00" style="grid-column: 5; grid-row: 1;">
+                            <div class="card-time">5:45 – 6:00 PM</div>
+                            <div class="card-topic">Pizza Break (continues)</div>
+                        </div>
+                        <div class="schedule-card kids" data-start="18:00" data-end="19:00" style="grid-column: 5; grid-row: 2 / 4;">
+                            <div class="card-time">6:00 – 7:00 PM</div>
+                            <div class="card-topic">Ramadan Arts & Crafts</div>
+                        </div>
+                        <div class="schedule-card kids" data-start="19:00" data-end="19:30" style="grid-column: 5; grid-row: 4;">
+                            <div class="card-time">7:00 – 7:30 PM</div>
+                            <div class="card-topic">Movement & Playtime</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7:30 PM - End Section -->
+                <div class="time-section" id="section-closing" data-start="19:30" data-end="20:30">
+                    <div class="time-section-header">
+                        <span class="time-section-badge">7:30 PM – End</span>
+                        <span class="time-section-title">Closing Program</span>
+                    </div>
+                    <div class="schedule-grid closing-grid">
+                        <div class="schedule-card shared-4" data-start="19:30" data-end="19:55" style="grid-column: 1 / 5; grid-row: 1;">
+                            <div>
+                                <div class="card-time">7:30 – 7:55 PM</div>
+                                <div class="card-speaker">Closing Remarks & Dua</div>
+                            </div>
+                            <div class="card-location">
+                                <span class="location-tag brothers">Brothers: Main Musallah</span>
+                                <span class="location-tag sisters">Sisters: Women's Musallah</span>
+                            </div>
+                        </div>
+                        <div class="schedule-card kids" data-start="19:30" data-end="19:50" style="grid-column: 5; grid-row: 1 / 3;">
+                            <div class="card-time">7:30 – 7:50 PM</div>
+                            <div class="card-topic">Movement & Playtime</div>
+                            <div class="card-topic" style="margin-top: 8px; color: #dc2626; font-weight: 600;">Pick up by 7:50!</div>
+                        </div>
+
+                        <div class="schedule-card shared-4" data-start="19:55" data-end="20:00" style="grid-column: 1 / 5; grid-row: 2;">
+                            <div>
+                                <div class="card-time">7:55 PM</div>
+                                <div class="card-topic">Adhan for Isha</div>
+                            </div>
+                        </div>
+
+                        <div class="schedule-card shared" data-start="20:00" data-end="20:30" style="grid-column: 1 / 6; grid-row: 3;">
+                            <div>
+                                <div class="card-time">8:00 PM</div>
+                                <div class="card-speaker">Isha Prayer</div>
+                                <div class="card-topic">Food boxes available for purchase</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Test Controls -->
+    <div class="test-controls">
+        <label>Quick Jump:</label>
+        <div class="time-buttons">
+            <button onclick="jumpTo('16:00')">4:00</button>
+            <button onclick="jumpTo('16:15')">4:15</button>
+            <button onclick="jumpTo('16:30')">4:30</button>
+            <button onclick="jumpTo('16:45')">4:45</button>
+            <button onclick="jumpTo('17:00')">5:00</button>
+            <button onclick="jumpTo('17:15')">5:15</button>
+            <button onclick="jumpTo('17:30')">5:30</button>
+            <button onclick="jumpTo('17:45')">5:45</button>
+            <button onclick="jumpTo('18:00')">6:00</button>
+            <button onclick="jumpTo('18:15')">6:15</button>
+            <button onclick="jumpTo('18:30')">6:30</button>
+            <button onclick="jumpTo('18:45')">6:45</button>
+            <button onclick="jumpTo('19:00')">7:00</button>
+            <button onclick="jumpTo('19:15')">7:15</button>
+            <button onclick="jumpTo('19:30')">7:30</button>
+            <button onclick="jumpTo('19:45')">7:45</button>
+            <button onclick="jumpTo('20:00')">8:00</button>
+        </div>
+        <div class="current-test-time" id="testTimeDisplay"></div>
+    </div>
+
+    <script>
+        const CHICAGO_TZ = 'America/Chicago';
+        let testTimeMinutes = null;
+
+        function getChicagoTime() {
+            if (testTimeMinutes !== null) {
+                const hours = Math.floor(testTimeMinutes / 60);
+                const minutes = testTimeMinutes % 60;
+                return { hours, minutes, totalMinutes: testTimeMinutes };
+            }
+            const now = new Date();
+            const chicagoTime = new Date(now.toLocaleString('en-US', { timeZone: CHICAGO_TZ }));
+            const hours = chicagoTime.getHours();
+            const minutes = chicagoTime.getMinutes();
+            return { hours, minutes, totalMinutes: hours * 60 + minutes };
+        }
+
+        function formatTime(hours, minutes) {
+            const period = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            const displayMinutes = minutes.toString().padStart(2, '0');
+            return `${displayHours}:${displayMinutes} ${period}`;
+        }
+
+        function timeToMinutes(timeStr) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
+
+        function setTestTime() {
+            const input = document.getElementById('testTimeInput').value;
+            if (input && input.includes(':')) {
+                const [hours, minutes] = input.split(':').map(Number);
+                testTimeMinutes = hours * 60 + minutes;
+                document.getElementById('testTimeDisplay').textContent = `Testing: ${formatTime(hours, minutes)}`;
+                updateAll();
+            }
+        }
+
+        function clearTestTime() {
+            testTimeMinutes = null;
+            document.getElementById('testTimeDisplay').textContent = 'Live mode';
+            document.querySelectorAll('.time-buttons button').forEach(btn => btn.classList.remove('active-time'));
+            updateAll();
+        }
+
+        function jumpTo(timeStr) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            testTimeMinutes = hours * 60 + minutes;
+            document.getElementById('testTimeDisplay').textContent = `Testing: ${formatTime(hours, minutes)}`;
+            document.querySelectorAll('.time-buttons button').forEach(btn => btn.classList.remove('active-time'));
+            event.target.classList.add('active-time');
+            updateAll();
+        }
+
+        function updateClock() {
+            const { hours, minutes } = getChicagoTime();
+            document.getElementById('currentTime').textContent = formatTime(hours, minutes);
+        }
+
+        function updateHighlights() {
+            const { totalMinutes } = getChicagoTime();
+
+            // Update time sections
+            document.querySelectorAll('.time-section').forEach(section => {
+                const start = timeToMinutes(section.dataset.start);
+                const end = timeToMinutes(section.dataset.end);
+
+                section.classList.remove('active', 'past');
+
+                if (totalMinutes >= start && totalMinutes < end) {
+                    section.classList.add('active');
+                } else if (totalMinutes >= end) {
+                    section.classList.add('past');
+                }
+            });
+
+            // Update individual cards (schedule-grid cards)
+            document.querySelectorAll('.schedule-card[data-start]').forEach(card => {
+                const start = timeToMinutes(card.dataset.start);
+                const end = timeToMinutes(card.dataset.end);
+
+                card.classList.remove('active');
+
+                const existingBadge = card.querySelector('.now-badge');
+                if (existingBadge) existingBadge.remove();
+
+                if (totalMinutes >= start && totalMinutes < end) {
+                    card.classList.add('active');
+
+                    const timeEl = card.querySelector('.card-time');
+                    if (timeEl && !timeEl.querySelector('.now-badge')) {
+                        const badge = document.createElement('span');
+                        badge.className = 'now-badge';
+                        badge.textContent = 'NOW';
+                        timeEl.appendChild(badge);
+                    }
+                }
+            });
+
+            // Update unified items (Main Session & Break views)
+            document.querySelectorAll('.unified-item[data-start]').forEach(item => {
+                const start = timeToMinutes(item.dataset.start);
+                const end = timeToMinutes(item.dataset.end);
+
+                item.classList.remove('active');
+
+                const existingBadge = item.querySelector('.now-badge');
+                if (existingBadge) existingBadge.remove();
+
+                if (totalMinutes >= start && totalMinutes < end) {
+                    item.classList.add('active');
+
+                    const timeEl = item.querySelector('.unified-item-time');
+                    if (timeEl && !timeEl.querySelector('.now-badge')) {
+                        const badge = document.createElement('span');
+                        badge.className = 'now-badge';
+                        badge.textContent = 'NOW';
+                        timeEl.appendChild(badge);
+                    }
+                }
+            });
+
+            // Show/hide column headers based on section (only during breakout: 5:45 - 7:30 PM)
+            const columnsHeader = document.getElementById('columnsHeader');
+            const breakoutStart = timeToMinutes('17:45'); // 5:45 PM
+            const breakoutEnd = timeToMinutes('19:30'); // 7:30 PM
+
+            if (totalMinutes >= breakoutStart && totalMinutes < breakoutEnd) {
+                columnsHeader.classList.add('visible');
+            } else {
+                columnsHeader.classList.remove('visible');
+            }
+
+            autoScroll();
+            updateAlerts(totalMinutes);
+            updateSponsor(totalMinutes);
+        }
+
+        function updateSponsor(totalMinutes) {
+            const sponsor = document.getElementById('headerSponsor');
+            const hourStart = timeToMinutes('16:00'); // 4:00 PM
+            const hourEnd = timeToMinutes('17:00'); // 5:00 PM
+
+            if (totalMinutes >= hourStart && totalMinutes < hourEnd) {
+                sponsor.classList.add('visible');
+            } else {
+                sponsor.classList.remove('visible');
+            }
+        }
+
+        function autoScroll() {
+            const scrollContent = document.getElementById('scrollContent');
+            const scrollContainer = document.querySelector('.scroll-container');
+            const activeSection = document.querySelector('.time-section.active');
+
+            if (activeSection && scrollContainer) {
+                const containerHeight = scrollContainer.offsetHeight;
+                const sectionTop = activeSection.offsetTop;
+                const sectionHeight = activeSection.offsetHeight;
+
+                let scrollTo;
+                if (sectionHeight < containerHeight) {
+                    // Section is smaller than container - center it
+                    const centerOffset = (containerHeight - sectionHeight) / 2;
+                    scrollTo = sectionTop - centerOffset;
+                } else {
+                    // Section is larger - align to top
+                    scrollTo = sectionTop;
+                }
+
+                scrollContent.style.transform = `translateY(-${Math.max(0, scrollTo)}px)`;
+            } else {
+                scrollContent.style.transform = 'translateY(0)';
+            }
+        }
+
+        function updateAlerts(totalMinutes) {
+            const headerAlert = document.getElementById('headerAlert');
+
+            let showAlert = false;
+            let message = '';
+            let isWarning = false;
+
+            if (totalMinutes >= 17 * 60 + 40 && totalMinutes < 17 * 60 + 46) {
+                showAlert = true;
+                message = 'Breakout sessions starting soon — Please proceed to your designated areas';
+            } else if (totalMinutes >= 19 * 60 + 25 && totalMinutes < 19 * 60 + 35) {
+                showAlert = true;
+                message = 'All brothers return to Main MAGR Musallah — All sisters return to Women\'s Musallah';
+            } else if (totalMinutes >= 19 * 60 + 45 && totalMinutes < 19 * 60 + 55) {
+                showAlert = true;
+                isWarning = true;
+                message = 'Parents: Please pick up your children before Isha prayer';
+            }
+
+            if (showAlert) {
+                headerAlert.textContent = message;
+                headerAlert.classList.add('visible');
+                headerAlert.classList.toggle('warning', isWarning);
+            } else {
+                headerAlert.classList.remove('visible');
+            }
+        }
+
+        function updateAll() {
+            updateClock();
+            updateHighlights();
+        }
+
+        updateAll();
+        setInterval(updateAll, 1000);
+    </script>
+</body>
+</html>
