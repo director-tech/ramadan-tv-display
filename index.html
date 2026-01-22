@@ -799,6 +799,136 @@
             font-weight: 600;
         }
 
+        /* Slide Mode Styles */
+        .header-title {
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .header-title:hover {
+            color: var(--burgundy);
+        }
+
+        .header-title.slide-mode {
+            color: var(--burgundy);
+        }
+
+        /* Slide mode indicator badge */
+        .slide-mode-badge {
+            display: none;
+            margin-left: 16px;
+            padding: 6px 14px;
+            background: var(--burgundy);
+            color: white;
+            border-radius: 20px;
+            font-family: 'Matter', sans-serif;
+            font-size: 0.8vw;
+            font-weight: 600;
+            white-space: nowrap;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .slide-mode-badge.visible {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Slide progress bar */
+        .slide-progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--light-gray);
+            z-index: 100;
+            display: none;
+        }
+
+        .slide-progress-container.visible {
+            display: block;
+        }
+
+        .slide-progress-bar {
+            height: 100%;
+            background: var(--burgundy);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Slide navigation dots */
+        .slide-dots {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 12px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .slide-dots.visible {
+            display: flex;
+        }
+
+        .slide-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            border: 2px solid var(--slate);
+            transition: all 0.3s ease;
+        }
+
+        .slide-dot.active {
+            background: var(--burgundy);
+            border-color: var(--burgundy);
+            transform: scale(1.2);
+        }
+
+        .slide-dot-label {
+            font-size: 10px;
+            color: var(--slate);
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        /* In slide mode, hide non-active sections with smooth transition */
+        .scroll-container.slide-mode .time-section {
+            opacity: 0;
+            position: absolute;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .scroll-container.slide-mode .time-section.slide-visible {
+            opacity: 1;
+            position: relative;
+            pointer-events: auto;
+        }
+
+        /* Make sections fill available space in slide mode */
+        .scroll-container.slide-mode {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-container.slide-mode .scroll-content {
+            width: 100%;
+            transform: none !important;
+        }
+
     </style>
 </head>
 <body>
@@ -811,7 +941,8 @@
                     <span class="header-logos-x">&times;</span>
                     <img src="./sahwah-logo.png" alt="Sahwah">
                 </div>
-                <h1 class="header-title">Ramadan Prep Workshop</h1>
+                <h1 class="header-title" id="headerTitle">Ramadan Prep Workshop</h1>
+                <span class="slide-mode-badge" id="slideModeBadge">SLIDE MODE</span>
                 <div class="header-sponsor" id="headerSponsor">
                     <p class="sponsor-text-container"><span class="sponsor-line-1">This hour is brought to you by the most trusted Muslim-owned pediatric practice in town.</span> <span class="sponsor-line-2"><strong>Dr. Asim Mustafa</strong> has been the childhood doctor of 3 generations of Muslims.</span> <span class="sponsor-line-3">Get your kids up to date on their flu vaccines and physicals.</span></p>
                     <div class="sponsor-qr-container">
@@ -1085,6 +1216,19 @@
         </div>
     </div>
 
+    <!-- Slide Mode Navigation -->
+    <div class="slide-dots" id="slideDots">
+        <div class="slide-dot active" data-slide="0"></div>
+        <div class="slide-dot" data-slide="1"></div>
+        <div class="slide-dot" data-slide="2"></div>
+        <div class="slide-dot" data-slide="3"></div>
+    </div>
+
+    <!-- Slide Progress Bar -->
+    <div class="slide-progress-container" id="slideProgress">
+        <div class="slide-progress-bar" id="slideProgressBar"></div>
+    </div>
+
     <!-- Time Control Panel -->
     <div class="time-control-panel" id="timeControlPanel">
         <div class="time-control-header">
@@ -1165,7 +1309,11 @@
                     message: 'Parents: Please pick up your children before Isha prayer' }
             },
 
-            SPONSOR: { start: 16 * 60, end: 17 * 60 }  // 4:00 - 5:00 PM
+            SPONSOR: { start: 16 * 60, end: 17 * 60 },  // 4:00 - 5:00 PM
+
+            // Slide mode settings
+            SLIDE_DURATION: 10000,  // 10 seconds per slide
+            SLIDE_SECTIONS: ['section-4pm', 'section-5pm', 'section-breakout', 'section-closing']
         };
 
         // ============================================
@@ -1174,6 +1322,13 @@
         let isManualTime = false;
         let manualStartMinutes = SCHEDULE.EVENT_START;
         let manualStartTimestamp = null;
+
+        // Slide mode state
+        let isSlideMode = false;
+        let currentSlideIndex = 0;
+        let slideTimer = null;
+        let slideProgressInterval = null;
+        let slideStartTime = null;
 
         // ============================================
         // CACHED DOM ELEMENTS (populated on load)
@@ -1201,7 +1356,13 @@
                     sliderContainer: document.querySelector('.time-slider-container'),
                     sliderTimeValue: document.getElementById('sliderTimeValue'),
                     manualTimeStatus: document.getElementById('manualTimeStatus'),
-                    setTimeBtn: document.getElementById('setTimeBtn')
+                    setTimeBtn: document.getElementById('setTimeBtn'),
+                    // Slide mode elements
+                    headerTitle: document.getElementById('headerTitle'),
+                    slideModeBadge: document.getElementById('slideModeBadge'),
+                    slideDots: document.getElementById('slideDots'),
+                    slideProgress: document.getElementById('slideProgress'),
+                    slideProgressBar: document.getElementById('slideProgressBar')
                 };
             }
             return cachedElements;
@@ -1363,6 +1524,107 @@
         }
 
         // ============================================
+        // SLIDE MODE FUNCTIONS
+        // ============================================
+        function toggleSlideMode() {
+            isSlideMode = !isSlideMode;
+            const el = getCachedElements();
+
+            if (isSlideMode) {
+                // Enter slide mode
+                el.headerTitle.classList.add('slide-mode');
+                el.slideModeBadge.classList.add('visible');
+                el.slideDots.classList.add('visible');
+                el.slideProgress.classList.add('visible');
+                el.scrollContainer.classList.add('slide-mode');
+
+                // Start from first slide
+                currentSlideIndex = 0;
+                showSlide(currentSlideIndex);
+                startSlideTimer();
+            } else {
+                // Exit slide mode
+                el.headerTitle.classList.remove('slide-mode');
+                el.slideModeBadge.classList.remove('visible');
+                el.slideDots.classList.remove('visible');
+                el.slideProgress.classList.remove('visible');
+                el.scrollContainer.classList.remove('slide-mode');
+
+                // Stop timers
+                stopSlideTimer();
+
+                // Remove slide-visible class from all sections
+                el.sections.forEach(section => {
+                    section.classList.remove('slide-visible');
+                });
+
+                // Return to normal time-based display
+                updateAll();
+            }
+        }
+
+        function showSlide(index) {
+            const el = getCachedElements();
+            const sectionIds = SCHEDULE.SLIDE_SECTIONS;
+
+            // Hide all sections, show only current
+            el.sections.forEach(section => {
+                section.classList.remove('slide-visible');
+            });
+
+            const currentSection = document.getElementById(sectionIds[index]);
+            if (currentSection) {
+                currentSection.classList.add('slide-visible');
+            }
+
+            // Update dots
+            const dots = el.slideDots.querySelectorAll('.slide-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            // Reset progress bar
+            el.slideProgressBar.style.width = '0%';
+            slideStartTime = Date.now();
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % SCHEDULE.SLIDE_SECTIONS.length;
+            showSlide(currentSlideIndex);
+        }
+
+        function startSlideTimer() {
+            stopSlideTimer(); // Clear any existing timers
+
+            // Auto-advance timer
+            slideTimer = setInterval(nextSlide, SCHEDULE.SLIDE_DURATION);
+
+            // Progress bar update (every 100ms for smooth animation)
+            slideStartTime = Date.now();
+            slideProgressInterval = setInterval(updateSlideProgress, 100);
+        }
+
+        function stopSlideTimer() {
+            if (slideTimer) {
+                clearInterval(slideTimer);
+                slideTimer = null;
+            }
+            if (slideProgressInterval) {
+                clearInterval(slideProgressInterval);
+                slideProgressInterval = null;
+            }
+        }
+
+        function updateSlideProgress() {
+            if (!isSlideMode || !slideStartTime) return;
+
+            const el = getCachedElements();
+            const elapsed = Date.now() - slideStartTime;
+            const progress = Math.min((elapsed / SCHEDULE.SLIDE_DURATION) * 100, 100);
+            el.slideProgressBar.style.width = progress + '%';
+        }
+
+        // ============================================
         // UI UPDATE FUNCTIONS (split for clarity)
         // ============================================
         function updateClock() {
@@ -1372,6 +1634,9 @@
         }
 
         function updateSections(totalMinutes) {
+            // In slide mode, don't apply time-based styling
+            if (isSlideMode) return;
+
             const el = getCachedElements();
             let newActiveSection = null;
 
@@ -1458,6 +1723,9 @@
         }
 
         function autoScroll() {
+            // Don't auto-scroll in slide mode
+            if (isSlideMode) return;
+
             const el = getCachedElements();
             const activeSection = document.querySelector('.time-section.active');
 
@@ -1529,9 +1797,10 @@
             // Cache DOM elements first
             getCachedElements();
 
-            // Set up click handler for time control
+            // Set up click handlers
             const el = getCachedElements();
             el.currentTime.addEventListener('click', toggleTimeControl);
+            el.headerTitle.addEventListener('click', toggleSlideMode);
 
             // Restore manual mode if saved
             if (restoreManualState()) {
