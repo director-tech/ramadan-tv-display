@@ -140,6 +140,8 @@
 
         .header-sponsor.visible {
             display: flex;
+            flex-direction: row;
+            align-items: center;
             margin-left: 24px;
             padding-left: 24px;
             border-left: 2px solid var(--light-gray);
@@ -153,6 +155,8 @@
 
         .sponsor-text-container {
             margin: 0;
+            flex: 1;
+            min-width: 0;
         }
 
         .sponsor-line-1,
@@ -227,17 +231,12 @@
             text-align: right;
         }
 
-        /* Column Headers - Fixed (hidden until breakout) */
+        /* Column Headers - Inside Breakout Section */
         .columns-header {
-            display: none;
+            display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 12px;
             margin-bottom: 16px;
-            flex-shrink: 0;
-        }
-
-        .columns-header.visible {
-            display: grid;
         }
 
         /* Unified View (Main Session & Break) */
@@ -404,7 +403,7 @@
         }
 
         .scroll-content {
-            transition: transform 0.8s ease-out;
+            transition: transform 0.3s ease-out;
         }
 
         /* Time Section */
@@ -611,30 +610,6 @@
             </div>
         </header>
 
-        <!-- Column Headers - Hidden until Breakout -->
-        <div class="columns-header" id="columnsHeader">
-            <div class="column-header brothers">
-                <div class="column-title">Brothers</div>
-                <span class="column-location">Main MAGR Musallah</span>
-            </div>
-            <div class="column-header sisters">
-                <div class="column-title">Sisters</div>
-                <span class="column-location">Women's Musallah</span>
-            </div>
-            <div class="column-header youth-brothers">
-                <div class="column-title">Youth Brothers</div>
-                <span class="column-location">UFC Gym</span>
-            </div>
-            <div class="column-header youth-sisters">
-                <div class="column-title">Youth Sisters</div>
-                <span class="column-location">Weekend School</span>
-            </div>
-            <div class="column-header kids">
-                <div class="column-title">Kids Program</div>
-                <span class="column-location">Small Old Gym</span>
-            </div>
-        </div>
-
         <!-- Scroll Container -->
         <div class="scroll-container">
             <div class="scroll-content" id="scrollContent">
@@ -649,7 +624,7 @@
                         <div class="unified-column everyone">
                             <div class="unified-column-header">
                                 <div class="unified-column-title">Main Session</div>
-                                <div class="unified-column-subtitle">Brothers & Youth Brothers: Main MAGR Musallah · Sisters & Youth Sisters: Women's MAGR Musallah</div>
+                                <div class="unified-column-subtitle">Brothers & Youth Brothers: Main MAGR Musalla · Sisters & Youth Sisters: Women's MAGR Musalla</div>
                             </div>
                             <div class="unified-column-content">
                                 <div class="unified-item" data-start="16:00" data-end="16:10">
@@ -707,7 +682,7 @@
                         <div class="unified-column everyone">
                             <div class="unified-column-header">
                                 <div class="unified-column-title">Break & Prayer</div>
-                                <div class="unified-column-subtitle">Brothers & Youth Brothers: Main MAGR Musallah · Sisters & Youth Sisters: Women's MAGR Musallah</div>
+                                <div class="unified-column-subtitle">Brothers & Youth Brothers: Main MAGR Musalla · Sisters & Youth Sisters: Women's MAGR Musalla</div>
                             </div>
                             <div class="unified-column-content">
                                 <div class="unified-item" data-start="17:00" data-end="17:15">
@@ -744,6 +719,29 @@
                     <div class="time-section-header">
                         <span class="time-section-badge">5:45 – 7:30 PM</span>
                         <span class="time-section-title">Breakout Sessions</span>
+                    </div>
+                    <!-- Column Headers - Part of Breakout Section -->
+                    <div class="columns-header" id="columnsHeader">
+                        <div class="column-header brothers">
+                            <div class="column-title">Brothers</div>
+                            <span class="column-location">Main Musalla</span>
+                        </div>
+                        <div class="column-header sisters">
+                            <div class="column-title">Sisters</div>
+                            <span class="column-location">Women's Musalla</span>
+                        </div>
+                        <div class="column-header youth-brothers">
+                            <div class="column-title">Youth Brothers</div>
+                            <span class="column-location">UFC Gym</span>
+                        </div>
+                        <div class="column-header youth-sisters">
+                            <div class="column-title">Youth Sisters</div>
+                            <span class="column-location">Weekend School</span>
+                        </div>
+                        <div class="column-header kids">
+                            <div class="column-title">Kids Program</div>
+                            <span class="column-location">Small Old Gym</span>
+                        </div>
                     </div>
                     <div class="schedule-grid breakout-grid">
                         <!-- Brothers Column -->
@@ -807,7 +805,7 @@
                             <div class="card-time">6:45 – 7:30 PM</div>
                             <div class="card-speaker">Alima Sakina</div>
                             <div class="card-topic">Finding Balance & Q&A</div>
-                            <div class="card-topic" style="font-size: 0.65vw; color: var(--slate); margin-top: 4px;">→ Join Sisters at Women's Musallah</div>
+                            <div class="card-topic" style="font-size: 0.65vw; color: var(--slate); margin-top: 4px;">→ Join Sisters at Women's Musalla</div>
                         </div>
 
                         <!-- Kids Column -->
@@ -839,8 +837,8 @@
                                 <div class="card-speaker">Closing Remarks & Dua</div>
                             </div>
                             <div class="card-location">
-                                <span class="location-tag brothers">Brothers: Main Musallah</span>
-                                <span class="location-tag sisters">Sisters: Women's Musallah</span>
+                                <span class="location-tag brothers">Brothers: Main Musalla</span>
+                                <span class="location-tag sisters">Sisters: Women's Musalla</span>
                             </div>
                         </div>
                         <div class="schedule-card kids" data-start="19:30" data-end="19:50" style="grid-column: 5; grid-row: 1 / 3;">
@@ -961,17 +959,6 @@
                 }
             });
 
-            // Show/hide column headers based on section (only during breakout: 5:45 - 7:30 PM)
-            const columnsHeader = document.getElementById('columnsHeader');
-            const breakoutStart = timeToMinutes('17:45'); // 5:45 PM
-            const breakoutEnd = timeToMinutes('19:30'); // 7:30 PM
-
-            if (totalMinutes >= breakoutStart && totalMinutes < breakoutEnd) {
-                columnsHeader.classList.add('visible');
-            } else {
-                columnsHeader.classList.remove('visible');
-            }
-
             autoScroll();
             updateAlerts(totalMinutes);
             updateSponsor(totalMinutes);
@@ -1027,7 +1014,7 @@
                 message = 'Breakout sessions starting soon — Please proceed to your designated areas';
             } else if (totalMinutes >= 19 * 60 + 25 && totalMinutes < 19 * 60 + 35) {
                 showAlert = true;
-                message = 'All brothers return to Main MAGR Musallah — All sisters return to Women\'s Musallah';
+                message = 'All brothers return to Main MAGR Musalla — All sisters return to Women\'s Musalla';
             } else if (totalMinutes >= 19 * 60 + 45 && totalMinutes < 19 * 60 + 55) {
                 showAlert = true;
                 isWarning = true;
