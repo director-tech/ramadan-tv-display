@@ -971,9 +971,9 @@
 
         .promo-description {
             font-family: 'Matter', sans-serif;
-            font-size: 1.4vw;
+            font-size: 1.3vw;
             color: var(--slate);
-            max-width: 90%;
+            max-width: 100%;
             line-height: 1.5;
         }
 
@@ -1024,10 +1024,10 @@
 
         .track-name {
             font-family: 'Signifier', serif;
-            font-size: 2vw;
+            font-size: 1.6vw;
             font-weight: 500;
             color: var(--navy);
-            min-width: 280px;
+            min-width: 200px;
             text-align: left;
             flex-shrink: 0;
             white-space: nowrap;
@@ -1079,6 +1079,65 @@
             font-size: 1.2vw;
             font-weight: 600;
             color: var(--burgundy);
+        }
+
+        /* Promo Slide 4 - Personalized Schedule */
+        .personalized-tagline {
+            font-family: 'Matter', sans-serif;
+            font-size: 1.4vw;
+            font-weight: 600;
+            color: var(--slate);
+            margin-bottom: 24px;
+        }
+
+        .personalized-tracks {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .track-pill {
+            font-family: 'Matter', sans-serif;
+            font-size: 1.2vw;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 30px;
+            color: white;
+        }
+
+        .track-pill.brothers { background: var(--navy); }
+        .track-pill.sisters { background: var(--burgundy); }
+        .track-pill.youth-brothers { background: var(--navy); opacity: 0.8; }
+        .track-pill.youth-sisters { background: var(--burgundy); opacity: 0.8; }
+        .track-pill.kids { background: var(--green); }
+
+        .personalized-headline {
+            font-family: 'Signifier', serif;
+            font-size: 3.5vw;
+            font-weight: 500;
+            color: var(--navy);
+            margin-bottom: 16px;
+        }
+
+        .personalized-subtext {
+            font-family: 'Matter', sans-serif;
+            font-size: 1.4vw;
+            color: var(--slate);
+            margin-bottom: 40px;
+        }
+
+        .personalized-qr-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .personalized-qr {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         }
 
     </style>
@@ -1180,6 +1239,23 @@
                             <p class="cta-subtext">Scan the QR code to secure your spot<br>and view the full agenda on your phone.</p>
                             <p class="cta-action">Free event • All ages welcome</p>
                         </div>
+                    </div>
+                </div>
+
+                <!-- PROMO SLIDE 4: Personalized Schedule CTA -->
+                <div class="promo-slide" id="promo-slide-4">
+                    <div class="personalized-tagline">Which track are you?</div>
+                    <div class="personalized-tracks">
+                        <span class="track-pill brothers">Brothers</span>
+                        <span class="track-pill sisters">Sisters</span>
+                        <span class="track-pill youth-brothers">Youth Brothers</span>
+                        <span class="track-pill youth-sisters">Youth Sisters</span>
+                        <span class="track-pill kids">Kids</span>
+                    </div>
+                    <h2 class="personalized-headline">View Your Personalized Schedule</h2>
+                    <p class="personalized-subtext">Scan to see only the sessions relevant to you</p>
+                    <div class="personalized-qr-container">
+                        <img src="./Event Registration.png" alt="View Schedule" class="personalized-qr">
                     </div>
                 </div>
 
@@ -1521,7 +1597,7 @@
 
             // Slide mode settings
             SLIDE_DURATION: 10000,  // 10 seconds per slide
-            SLIDE_SECTIONS: ['promo-slide-1', 'promo-slide-2', 'promo-slide-3', 'section-4pm', 'section-5pm', 'section-breakout', 'section-closing']
+            SLIDE_SECTIONS: ['promo-slide-1', 'promo-slide-2', 'promo-slide-3', 'promo-slide-4', 'section-4pm', 'section-5pm', 'section-breakout', 'section-closing']
         };
 
         // ============================================
