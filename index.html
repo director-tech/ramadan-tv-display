@@ -1140,6 +1140,197 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         }
 
+        /* Promo Slide - Sponsorship */
+        .sponsorship-slide {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 1600px;
+        }
+
+        .sponsorship-tiers {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+        }
+
+        .sponsor-tier {
+            flex: 1;
+            border-radius: 16px;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sponsor-tier.silver {
+            background: #f5f5f5;
+            border: 3px solid #A9A9A9;
+        }
+
+        .sponsor-tier.gold {
+            background: #fffdf5;
+            border: 3px solid #DAA520;
+        }
+
+        .sponsor-tier-badge {
+            font-family: 'Matter', sans-serif;
+            font-size: 0.7vw;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 14px;
+            display: inline-block;
+            align-self: flex-start;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .sponsor-tier.silver .sponsor-tier-badge {
+            background: linear-gradient(135deg, #71706E, #A9A9A9);
+        }
+
+        .sponsor-tier.gold .sponsor-tier-badge {
+            background: linear-gradient(135deg, #B8860B, #DAA520);
+        }
+
+        .sponsor-tier-name {
+            font-family: 'Signifier', serif;
+            font-size: 2vw;
+            font-weight: 500;
+            letter-spacing: -1px;
+            margin-bottom: 2px;
+        }
+
+        .sponsor-tier.silver .sponsor-tier-name { color: #4a4a4a; }
+        .sponsor-tier.gold .sponsor-tier-name { color: #8B6914; }
+
+        .sponsor-tier-price {
+            font-family: 'Signifier', serif;
+            font-size: 2.5vw;
+            font-weight: 500;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .sponsor-tier.silver .sponsor-tier-price { color: #4a4a4a; }
+        .sponsor-tier.gold .sponsor-tier-price { color: #8B6914; }
+
+        .sponsor-tier-desc {
+            font-family: 'Matter', sans-serif;
+            font-size: 0.9vw;
+            font-weight: 500;
+            color: var(--navy);
+            margin-bottom: 10px;
+            line-height: 1.3;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .sponsor-tier-features {
+            list-style: none;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .sponsor-tier-features li {
+            font-family: 'Matter', sans-serif;
+            font-size: 0.85vw;
+            color: var(--navy);
+            padding-left: 24px;
+            position: relative;
+            line-height: 1.3;
+        }
+
+        .sponsor-tier-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            font-size: 0.85vw;
+        }
+
+        .sponsor-tier.silver .sponsor-tier-features li::before { color: #71706E; }
+        .sponsor-tier.gold .sponsor-tier-features li::before { color: #B8860B; }
+
+        .sponsor-tier-spots {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-family: 'Matter', sans-serif;
+            font-size: 0.75vw;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .sponsor-tier.silver .sponsor-tier-spots {
+            background: rgba(113, 112, 110, 0.15);
+            color: #4a4a4a;
+        }
+
+        .sponsor-tier.gold .sponsor-tier-spots {
+            background: rgba(184, 134, 11, 0.15);
+            color: #8B6914;
+        }
+
+        .sponsorship-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .sponsorship-cta-title {
+            font-family: 'Signifier', serif;
+            font-size: 1.6vw;
+            font-weight: 500;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .sponsorship-cta-subtitle {
+            font-family: 'Matter', sans-serif;
+            font-size: 0.8vw;
+            color: var(--slate);
+            margin-bottom: 20px;
+        }
+
+        .sponsorship-qr {
+            width: 140px;
+            height: 140px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .sponsorship-contact {
+            font-family: 'Matter', sans-serif;
+            font-size: 0.7vw;
+            color: var(--slate);
+        }
+
+        .sponsorship-contact strong {
+            color: var(--navy);
+            font-size: 0.85vw;
+        }
+
+        .sponsorship-mission {
+            font-family: 'Signifier', serif;
+            font-size: 0.9vw;
+            font-style: italic;
+            color: var(--slate);
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--light-gray);
+        }
+
     </style>
 </head>
 <body>
@@ -1230,8 +1421,49 @@
                     </div>
                 </div>
 
-                <!-- PROMO SLIDE 3: Registration CTA -->
+                <!-- PROMO SLIDE 3: Sponsorship Opportunities -->
                 <div class="promo-slide" id="promo-slide-3">
+                    <div class="sponsorship-slide">
+                        <div class="sponsorship-tiers">
+                            <div class="sponsor-tier silver">
+                                <span class="sponsor-tier-badge">Featured</span>
+                                <h2 class="sponsor-tier-name">Silver</h2>
+                                <p class="sponsor-tier-price">$375</p>
+                                <p class="sponsor-tier-desc">Featured on our live digital schedule app</p>
+                                <ul class="sponsor-tier-features">
+                                    <li>Logo on personalized schedule</li>
+                                    <li>Attendees scan & see your brand</li>
+                                    <li>Sponsor a track of your choice</li>
+                                    <li>Visibility throughout the event</li>
+                                </ul>
+                                <div class="sponsor-tier-spots">5 tracks available</div>
+                            </div>
+                            <div class="sponsor-tier gold">
+                                <span class="sponsor-tier-badge">Premium</span>
+                                <h2 class="sponsor-tier-name">Gold</h2>
+                                <p class="sponsor-tier-price">$500</p>
+                                <p class="sponsor-tier-desc">Prime-time visibility to 200+ attendees</p>
+                                <ul class="sponsor-tier-features">
+                                    <li>"This hour sponsored by" announcement</li>
+                                    <li>Custom ad on all screens</li>
+                                    <li>We create your call-to-action</li>
+                                    <li>Open to businesses or families</li>
+                                </ul>
+                                <div class="sponsor-tier-spots">3 of 4 spots available</div>
+                            </div>
+                        </div>
+                        <div class="sponsorship-cta">
+                            <h3 class="sponsorship-cta-title">Become a Sponsor</h3>
+                            <p class="sponsorship-cta-subtitle">Scan to message us on WhatsApp</p>
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/18159042925?text=Hi!%20I'm%20interested%20in%20sponsorship%20opportunities%20for%20the%20Ramadan%20Prep%20Workshop." alt="WhatsApp" class="sponsorship-qr">
+                            <p class="sponsorship-contact">Or email: <strong>director@sahwah.org</strong></p>
+                            <p class="sponsorship-mission">Your sponsorship helps us build sustainable programming</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROMO SLIDE 4: Registration CTA -->
+                <div class="promo-slide" id="promo-slide-4">
                     <div class="cta-container">
                         <img src="./Event Registration.png" alt="Register" class="cta-qr">
                         <div class="cta-text">
@@ -1242,8 +1474,8 @@
                     </div>
                 </div>
 
-                <!-- PROMO SLIDE 4: Personalized Schedule CTA -->
-                <div class="promo-slide" id="promo-slide-4">
+                <!-- PROMO SLIDE 5: Personalized Schedule CTA -->
+                <div class="promo-slide" id="promo-slide-5">
                     <div class="personalized-tagline">Which track are you?</div>
                     <div class="personalized-tracks">
                         <span class="track-pill brothers">Brothers</span>
@@ -1597,7 +1829,7 @@
 
             // Slide mode settings
             SLIDE_DURATION: 10000,  // 10 seconds per slide
-            SLIDE_SECTIONS: ['promo-slide-1', 'promo-slide-2', 'promo-slide-3', 'promo-slide-4', 'section-4pm', 'section-5pm', 'section-breakout', 'section-closing']
+            SLIDE_SECTIONS: ['promo-slide-1', 'promo-slide-2', 'promo-slide-3', 'promo-slide-4', 'promo-slide-5', 'section-4pm', 'section-5pm', 'section-breakout', 'section-closing']
         };
 
         // ============================================
