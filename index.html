@@ -1203,20 +1203,6 @@
             box-shadow: 0 8px 30px rgba(218, 165, 32, 0.15);
         }
 
-        .sponsor-tier.gold::before {
-            content: '★ MOST POPULAR';
-            position: absolute;
-            top: 16px;
-            right: -35px;
-            background: var(--burgundy);
-            color: white;
-            font-family: 'Matter', sans-serif;
-            font-size: 0.6vw;
-            font-weight: 700;
-            letter-spacing: 1px;
-            padding: 6px 40px;
-            transform: rotate(45deg);
-        }
 
         .sponsor-tier-badge {
             font-family: 'Matter', sans-serif;
@@ -1240,13 +1226,19 @@
             background: linear-gradient(135deg, #B8860B, #DAA520);
         }
 
+        .sponsor-tier-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
         .sponsor-tier-name {
             font-family: 'Signifier', serif;
             font-size: 2.4vw;
             font-weight: 500;
             letter-spacing: -1px;
-            margin-bottom: 4px;
-            text-align: center;
         }
 
         .sponsor-tier.silver .sponsor-tier-name { color: #4a4a4a; }
@@ -1254,11 +1246,9 @@
 
         .sponsor-tier-price {
             font-family: 'Signifier', serif;
-            font-size: 3vw;
+            font-size: 2.4vw;
             font-weight: 500;
             letter-spacing: -1px;
-            margin-bottom: 12px;
-            text-align: center;
         }
 
         .sponsor-tier.silver .sponsor-tier-price { color: #4a4a4a; }
@@ -1481,14 +1471,16 @@
                     <div class="sponsorship-slide">
                         <div class="sponsorship-header">
                             <h2 class="sponsorship-title">Sponsorship Opportunities</h2>
-                            <p class="sponsorship-subtitle">Support our community • Showcase your business</p>
+                            <p class="sponsorship-subtitle">Support our community, showcase your business</p>
                         </div>
                         <div class="sponsorship-content">
                             <div class="sponsorship-tiers">
                                 <div class="sponsor-tier silver">
                                     <span class="sponsor-tier-badge">Featured</span>
-                                    <h2 class="sponsor-tier-name">Silver</h2>
-                                    <p class="sponsor-tier-price">$375</p>
+                                    <div class="sponsor-tier-header">
+                                        <h2 class="sponsor-tier-name">Silver</h2>
+                                        <p class="sponsor-tier-price">$375</p>
+                                    </div>
                                     <p class="sponsor-tier-desc">Featured on our live digital schedule app</p>
                                     <ul class="sponsor-tier-features">
                                         <li>Logo on personalized schedule</li>
@@ -1500,8 +1492,10 @@
                                 </div>
                                 <div class="sponsor-tier gold">
                                     <span class="sponsor-tier-badge">Premium</span>
-                                    <h2 class="sponsor-tier-name">Gold</h2>
-                                    <p class="sponsor-tier-price">$500</p>
+                                    <div class="sponsor-tier-header">
+                                        <h2 class="sponsor-tier-name">Gold</h2>
+                                        <p class="sponsor-tier-price">$500</p>
+                                    </div>
                                     <p class="sponsor-tier-desc">Prime-time visibility to 200+ attendees</p>
                                     <ul class="sponsor-tier-features">
                                         <li>"This hour sponsored by" announcement</li>
