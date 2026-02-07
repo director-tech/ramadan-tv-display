@@ -195,10 +195,6 @@
             color: var(--burgundy);
         }
 
-        .current-time.manual-mode {
-            color: var(--burgundy);
-        }
-
         .event-date {
             font-size: 1vw;
             color: var(--slate);
@@ -215,202 +211,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 2px;
-        }
-
-        /* Time Control Panel */
-        .time-control-panel {
-            position: fixed;
-            top: 3%;
-            right: 4%;
-            width: 380px;
-            height: calc(100vh - 6%);
-            background: white;
-            border-radius: 16px;
-            box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            transform: translateX(120%);
-            transition: transform 0.3s ease;
-        }
-
-        .time-control-panel.visible {
-            transform: translateX(0);
-        }
-
-        .time-control-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .time-control-title {
-            font-family: 'Signifier', serif;
-            font-size: 24px;
-            font-weight: 500;
-            color: var(--navy);
-        }
-
-        .time-control-close {
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: var(--slate);
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .time-control-close:hover {
-            color: var(--navy);
-        }
-
-        .time-control-mode {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .mode-btn {
-            flex: 1;
-            padding: 14px 20px;
-            border: 2px solid var(--light-gray);
-            border-radius: 10px;
-            background: white;
-            font-family: 'Matter', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--slate);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .mode-btn:hover {
-            border-color: var(--navy);
-            color: var(--navy);
-        }
-
-        .mode-btn.active {
-            background: var(--navy);
-            border-color: var(--navy);
-            color: white;
-        }
-
-        .time-slider-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .time-slider-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--slate);
-            margin-bottom: 10px;
-        }
-
-        .time-slider-value {
-            font-family: 'Matter', sans-serif;
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--navy);
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .time-slider {
-            width: 100%;
-            height: 8px;
-            -webkit-appearance: none;
-            appearance: none;
-            background: var(--light-gray);
-            border-radius: 4px;
-            outline: none;
-            margin-bottom: 15px;
-        }
-
-        .time-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 24px;
-            height: 24px;
-            background: var(--navy);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .time-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-
-        .time-slider::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-            background: var(--navy);
-            border-radius: 50%;
-            cursor: pointer;
-            border: none;
-        }
-
-        .time-slider-marks {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--slate);
-            margin-bottom: 30px;
-        }
-
-        .time-sections-preview {
-            border-top: 2px solid var(--light-gray);
-            padding-top: 20px;
-        }
-
-        .time-sections-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--slate);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-        }
-
-        .time-section-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            background: var(--light-gray);
-            transition: background 0.2s ease;
-        }
-
-        .time-section-item.active {
-            background: #FFEE8C;
-        }
-
-        .time-section-item.past {
-            opacity: 0.4;
-        }
-
-        .time-section-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--navy);
-            margin-right: 12px;
-        }
-
-        .time-section-item.active .time-section-dot {
-            background: var(--yellow);
-            box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.3);
-        }
-
-        .time-section-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--charcoal);
         }
 
         .time-section-range {
@@ -770,612 +570,6 @@
             font-weight: 600;
         }
 
-        /* Slide Mode Styles */
-        .header-title {
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-
-        .header-title:hover {
-            color: var(--burgundy);
-        }
-
-        /* Slide mode info panel - shows event details and QR */
-        .slide-mode-info {
-            display: none;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .slide-mode-info.visible {
-            display: flex;
-        }
-
-        .slide-event-details {
-            text-align: center;
-            border-right: 2px solid var(--light-gray);
-            padding-right: 30px;
-        }
-
-        .slide-event-label {
-            font-size: 0.65vw;
-            color: var(--slate);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-
-        .slide-event-date {
-            font-family: 'Signifier', serif;
-            font-size: 1.2vw;
-            font-weight: 500;
-            color: var(--navy);
-            white-space: nowrap;
-        }
-
-        .slide-event-time {
-            font-size: 1vw;
-            font-weight: 500;
-            color: var(--charcoal);
-        }
-
-        .slide-qr-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .slide-qr {
-            width: 70px;
-            height: 70px;
-            border-radius: 6px;
-        }
-
-        .slide-qr-text {
-            font-size: 0.75vw;
-            font-weight: 500;
-            color: var(--navy);
-            max-width: 90px;
-            line-height: 1.3;
-        }
-
-        /* In slide mode, hide non-active sections - no transition on hide */
-        .scroll-container.slide-mode .time-section {
-            opacity: 0;
-            position: absolute;
-            pointer-events: none;
-        }
-
-        /* Only fade IN when becoming visible */
-        .scroll-container.slide-mode .time-section.slide-visible {
-            opacity: 1;
-            position: relative;
-            pointer-events: auto;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Make sections fill available space in slide mode */
-        .scroll-container.slide-mode {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .scroll-container.slide-mode .scroll-content {
-            width: 100%;
-            transform: none !important;
-        }
-
-        /* In slide mode, hide event date (we show it in slide-mode-info instead) */
-        .header-right.slide-mode .event-date {
-            display: none;
-        }
-
-        /* Promo Slides - Only visible in slide mode */
-        .promo-slide {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px;
-            min-height: 70vh;
-        }
-
-        .scroll-container.slide-mode .promo-slide {
-            display: flex;
-        }
-
-        .scroll-container.slide-mode .promo-slide {
-            opacity: 0;
-            position: absolute;
-            pointer-events: none;
-        }
-
-        .scroll-container.slide-mode .promo-slide.slide-visible {
-            opacity: 1;
-            position: relative;
-            pointer-events: auto;
-            animation: fadeIn 0.5s ease;
-        }
-
-        /* Promo Slide 1 - Intro */
-        .promo-tagline {
-            font-family: 'Matter', sans-serif;
-            font-size: 1.2vw;
-            font-weight: 600;
-            color: var(--burgundy);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .promo-title {
-            font-family: 'Signifier', serif;
-            font-size: 5vw;
-            font-weight: 500;
-            color: var(--navy);
-            margin-bottom: 30px;
-            line-height: 1.1;
-        }
-
-        .promo-meta {
-            display: flex;
-            align-items: center;
-            gap: 0;
-            margin-bottom: 30px;
-        }
-
-        .promo-meta-item {
-            padding: 12px 24px;
-            font-family: 'Matter', sans-serif;
-            font-size: 1.3vw;
-            font-weight: 600;
-        }
-
-        .promo-meta-item.date {
-            background: var(--navy);
-            color: white;
-            border-radius: 8px 0 0 8px;
-        }
-
-        .promo-meta-item.time {
-            background: white;
-            color: var(--charcoal);
-            border: 3px solid var(--light-gray);
-            border-left: none;
-            border-right: none;
-        }
-
-        .promo-meta-item.location {
-            background: var(--green);
-            color: white;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .promo-highlight {
-            font-family: 'Signifier', serif;
-            font-size: 1.8vw;
-            font-style: italic;
-            color: var(--charcoal);
-            background: linear-gradient(to right, #fef3c7, #fde68a);
-            padding: 12px 30px;
-            border-radius: 4px;
-            margin-bottom: 30px;
-        }
-
-        .promo-description {
-            font-family: 'Matter', sans-serif;
-            font-size: 1.3vw;
-            color: var(--slate);
-            max-width: 100%;
-            line-height: 1.5;
-        }
-
-        .promo-description strong {
-            color: var(--navy);
-        }
-
-        .promo-description .highlight-red {
-            color: var(--burgundy);
-        }
-
-        /* Promo Slide 2 - Tracks */
-        .tracks-container {
-            width: 80%;
-            max-width: 1200px;
-            background: white;
-            padding: 30px 40px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-
-        .track-item {
-            display: flex;
-            align-items: center;
-            padding: 24px 30px;
-            margin-bottom: 16px;
-            background: #f0f7ff;
-            border-radius: 12px;
-        }
-
-        .track-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .track-indicator {
-            width: 6px;
-            height: 50px;
-            border-radius: 3px;
-            margin-right: 30px;
-            flex-shrink: 0;
-        }
-
-        .track-indicator.brothers { background: var(--navy); }
-        .track-indicator.sisters { background: var(--burgundy); }
-        .track-indicator.youth-brothers { background: var(--navy); }
-        .track-indicator.youth-sisters { background: var(--burgundy); }
-        .track-indicator.kids { background: var(--green); }
-
-        .track-name {
-            font-family: 'Signifier', serif;
-            font-size: 1.6vw;
-            font-weight: 500;
-            color: var(--navy);
-            min-width: 200px;
-            text-align: left;
-            flex-shrink: 0;
-            white-space: nowrap;
-        }
-
-        .track-description {
-            font-family: 'Matter', sans-serif;
-            font-size: 1.3vw;
-            color: var(--slate);
-            text-align: left;
-            flex: 1;
-        }
-
-        /* Promo Slide 3 - Registration CTA */
-        .cta-container {
-            display: flex;
-            align-items: center;
-            gap: 60px;
-        }
-
-        .cta-qr {
-            width: 250px;
-            height: 250px;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .cta-text {
-            text-align: left;
-        }
-
-        .cta-headline {
-            font-family: 'Signifier', serif;
-            font-size: 3vw;
-            font-weight: 500;
-            color: var(--navy);
-            margin-bottom: 20px;
-        }
-
-        .cta-subtext {
-            font-family: 'Matter', sans-serif;
-            font-size: 1.5vw;
-            color: var(--slate);
-            margin-bottom: 15px;
-        }
-
-        .cta-action {
-            font-family: 'Matter', sans-serif;
-            font-size: 1.2vw;
-            font-weight: 600;
-            color: var(--burgundy);
-        }
-
-        /* Promo Slide 4 - Personalized Schedule */
-        .personalized-tagline {
-            font-family: 'Matter', sans-serif;
-            font-size: 1.4vw;
-            font-weight: 600;
-            color: var(--slate);
-            margin-bottom: 24px;
-        }
-
-        .personalized-tracks {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .track-pill {
-            font-family: 'Matter', sans-serif;
-            font-size: 1.2vw;
-            font-weight: 600;
-            padding: 12px 28px;
-            border-radius: 30px;
-            color: white;
-        }
-
-        .track-pill.brothers { background: var(--navy); }
-        .track-pill.sisters { background: var(--burgundy); }
-        .track-pill.youth-brothers { background: var(--navy); opacity: 0.8; }
-        .track-pill.youth-sisters { background: var(--burgundy); opacity: 0.8; }
-        .track-pill.kids { background: var(--green); }
-
-        .personalized-headline {
-            font-family: 'Signifier', serif;
-            font-size: 3.5vw;
-            font-weight: 500;
-            color: var(--navy);
-            margin-bottom: 16px;
-        }
-
-        .personalized-subtext {
-            font-family: 'Matter', sans-serif;
-            font-size: 1.4vw;
-            color: var(--slate);
-            margin-bottom: 40px;
-        }
-
-        .personalized-qr-container {
-            display: flex;
-            justify-content: center;
-        }
-
-        .personalized-qr {
-            width: 200px;
-            height: 200px;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-        }
-
-        /* Promo Slide - Sponsorship */
-        .sponsorship-slide {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 95%;
-            max-width: 1700px;
-        }
-
-        .sponsorship-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .sponsorship-title {
-            font-family: 'Signifier', serif;
-            font-size: 3.5vw;
-            font-weight: 500;
-            color: var(--navy);
-            margin-bottom: 8px;
-        }
-
-        .sponsorship-subtitle {
-            font-family: 'Matter', sans-serif;
-            font-size: 1.2vw;
-            color: var(--slate);
-        }
-
-        .sponsorship-content {
-            display: flex;
-            gap: 30px;
-            width: 100%;
-            align-items: stretch;
-        }
-
-        .sponsorship-tiers {
-            display: flex;
-            gap: 24px;
-            flex: 1;
-        }
-
-        .sponsor-tier {
-            flex: 1;
-            border-radius: 20px;
-            padding: 28px 26px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .sponsor-tier.silver {
-            background: linear-gradient(145deg, #fafafa 0%, #f0f0f0 100%);
-            border: 3px solid #B8B8B8;
-        }
-
-        .sponsor-tier.gold {
-            background: linear-gradient(145deg, #fffef8 0%, #fff8e6 100%);
-            border: 3px solid #DAA520;
-            box-shadow: 0 8px 30px rgba(218, 165, 32, 0.15);
-        }
-
-
-        .sponsor-tier-badge {
-            font-family: 'Matter', sans-serif;
-            font-size: 0.75vw;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 8px 16px;
-            border-radius: 20px;
-            display: inline-block;
-            align-self: center;
-            margin-bottom: 10px;
-            color: white;
-        }
-
-        .sponsor-tier.silver .sponsor-tier-badge {
-            background: linear-gradient(135deg, #71706E, #A9A9A9);
-        }
-
-        .sponsor-tier.gold .sponsor-tier-badge {
-            background: linear-gradient(135deg, #B8860B, #DAA520);
-        }
-
-        .sponsor-tier-header {
-            display: flex;
-            align-items: baseline;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .sponsor-tier-name {
-            font-family: 'Signifier', serif;
-            font-size: 2.4vw;
-            font-weight: 500;
-            letter-spacing: -1px;
-        }
-
-        .sponsor-tier.silver .sponsor-tier-name { color: #4a4a4a; }
-        .sponsor-tier.gold .sponsor-tier-name { color: #8B6914; }
-
-        .sponsor-tier-price {
-            font-family: 'Signifier', serif;
-            font-size: 2.4vw;
-            font-weight: 500;
-            letter-spacing: -1px;
-        }
-
-        .sponsor-tier.silver .sponsor-tier-price { color: #4a4a4a; }
-        .sponsor-tier.gold .sponsor-tier-price { color: #8B6914; }
-
-        .sponsor-tier-desc {
-            font-family: 'Matter', sans-serif;
-            font-size: 1vw;
-            font-weight: 500;
-            color: var(--navy);
-            margin-bottom: 16px;
-            line-height: 1.35;
-            padding-bottom: 16px;
-            border-bottom: 2px solid rgba(0,0,0,0.08);
-            text-align: center;
-        }
-
-        .sponsor-tier-features {
-            list-style: none;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .sponsor-tier-features li {
-            font-family: 'Matter', sans-serif;
-            font-size: 0.95vw;
-            color: var(--navy);
-            padding-left: 28px;
-            position: relative;
-            line-height: 1.4;
-            text-align: left;
-        }
-
-        .sponsor-tier-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            font-weight: 700;
-            font-size: 1vw;
-        }
-
-        .sponsor-tier.silver .sponsor-tier-features li::before { color: #71706E; }
-        .sponsor-tier.gold .sponsor-tier-features li::before { color: #B8860B; }
-
-        .sponsor-tier-spots {
-            margin-top: 16px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-family: 'Matter', sans-serif;
-            font-size: 0.9vw;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .sponsor-tier.silver .sponsor-tier-spots {
-            background: rgba(113, 112, 110, 0.12);
-            color: #4a4a4a;
-        }
-
-        .sponsor-tier.gold .sponsor-tier-spots {
-            background: rgba(184, 134, 11, 0.12);
-            color: #8B6914;
-        }
-
-        .sponsorship-cta {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 30px 35px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
-            min-width: 280px;
-        }
-
-        .sponsorship-cta-title {
-            font-family: 'Signifier', serif;
-            font-size: 1.8vw;
-            font-weight: 500;
-            color: var(--navy);
-            margin-bottom: 8px;
-        }
-
-        .sponsorship-cta-subtitle {
-            font-family: 'Matter', sans-serif;
-            font-size: 0.85vw;
-            color: var(--slate);
-            margin-bottom: 20px;
-        }
-
-        .sponsorship-qr {
-            width: 160px;
-            height: 160px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .sponsorship-contact {
-            font-family: 'Matter', sans-serif;
-            font-size: 0.8vw;
-            color: var(--slate);
-            margin-bottom: 16px;
-        }
-
-        .sponsorship-contact strong {
-            color: var(--navy);
-            font-size: 0.95vw;
-            display: block;
-            margin-top: 4px;
-        }
-
-        .sponsorship-mission {
-            font-family: 'Signifier', serif;
-            font-size: 0.85vw;
-            font-style: italic;
-            color: var(--slate);
-            padding-top: 16px;
-            border-top: 1px solid var(--light-gray);
-            max-width: 220px;
-            line-height: 1.4;
-        }
-
     </style>
 </head>
 <body>
@@ -1399,17 +593,6 @@
                 <div class="header-alert" id="headerAlert"></div>
             </div>
             <div class="header-right" id="headerRight">
-                <div class="slide-mode-info" id="slideModeInfo">
-                    <div class="slide-event-details">
-                        <div class="slide-event-label">Event</div>
-                        <div class="slide-event-date">February 7th, 2026</div>
-                        <div class="slide-event-time">4:00 – 8:00 PM</div>
-                    </div>
-                    <div class="slide-qr-container">
-                        <img src="./Event Registration.png" alt="Register" class="slide-qr">
-                        <div class="slide-qr-text">Scan to register</div>
-                    </div>
-                </div>
                 <div class="event-date" id="eventDate">February 7th, 2026</div>
                 <div class="time-display">
                     <div class="time-label">Live Time</div>
@@ -1421,130 +604,6 @@
         <!-- Scroll Container -->
         <div class="scroll-container">
             <div class="scroll-content" id="scrollContent">
-
-                <!-- PROMO SLIDE 1: Event Intro -->
-                <div class="promo-slide" id="promo-slide-1">
-                    <div class="promo-tagline">Join Us For Our First Ever</div>
-                    <h1 class="promo-title">Ramadan Prep Workshop</h1>
-                    <div class="promo-meta">
-                        <span class="promo-meta-item date">Saturday, February 7th, 2026</span>
-                        <span class="promo-meta-item time">4:00 – 8:00 PM</span>
-                        <span class="promo-meta-item location"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 6px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>MAGR</span>
-                    </div>
-                    <div class="promo-highlight">Make this the most productive and spiritually uplifting Ramadan for you and your family!</div>
-                    <p class="promo-description">Benefit from a panel of <strong>nationally renowned scholars</strong> and <span class="highlight-red">community leaders</span>,<br>with dedicated sessions for brothers, sisters, and youth plus an interactive Q&A to get your questions answered directly.</p>
-                </div>
-
-                <!-- PROMO SLIDE 2: Tracks Overview -->
-                <div class="promo-slide" id="promo-slide-2">
-                    <div class="tracks-container">
-                        <div class="track-item">
-                            <div class="track-indicator brothers"></div>
-                            <div class="track-name">Brothers</div>
-                            <div class="track-description">Maximizing Ramadan, reconnecting with the Quran, and psycho-social benefits of fasting.</div>
-                        </div>
-                        <div class="track-item">
-                            <div class="track-indicator sisters"></div>
-                            <div class="track-name">Sisters</div>
-                            <div class="track-description">Spiritual cleansing of the heart, balancing daily responsibilities, and mental resilience.</div>
-                        </div>
-                        <div class="track-item">
-                            <div class="track-indicator youth-brothers"></div>
-                            <div class="track-name">Youth Brothers</div>
-                            <div class="track-description">Preparing spiritually and mentally for Ramadan. Featuring visiting scholars.</div>
-                        </div>
-                        <div class="track-item">
-                            <div class="track-indicator youth-sisters"></div>
-                            <div class="track-name">Youth Sisters</div>
-                            <div class="track-description">Balancing school, social life, and intentional goal-setting for Ramadan.</div>
-                        </div>
-                        <div class="track-item">
-                            <div class="track-indicator kids"></div>
-                            <div class="track-name">Kids</div>
-                            <div class="track-description">Book reading, games, activities, and pizza.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PROMO SLIDE 3: Sponsorship Opportunities -->
-                <div class="promo-slide" id="promo-slide-3">
-                    <div class="sponsorship-slide">
-                        <div class="sponsorship-header">
-                            <h2 class="sponsorship-title">Sponsorship Opportunities</h2>
-                            <p class="sponsorship-subtitle">Support our community, showcase your business</p>
-                        </div>
-                        <div class="sponsorship-content">
-                            <div class="sponsorship-tiers">
-                                <div class="sponsor-tier silver">
-                                    <span class="sponsor-tier-badge">Featured</span>
-                                    <div class="sponsor-tier-header">
-                                        <h2 class="sponsor-tier-name">Silver</h2>
-                                        <p class="sponsor-tier-price">$375</p>
-                                    </div>
-                                    <p class="sponsor-tier-desc">Featured on our live digital schedule app</p>
-                                    <ul class="sponsor-tier-features">
-                                        <li>Logo on personalized schedule</li>
-                                        <li>Attendees scan & see your brand</li>
-                                        <li>Sponsor a track of your choice</li>
-                                        <li>Visibility throughout the event</li>
-                                    </ul>
-                                    <div class="sponsor-tier-spots">5 tracks available</div>
-                                </div>
-                                <div class="sponsor-tier gold">
-                                    <span class="sponsor-tier-badge">Premium</span>
-                                    <div class="sponsor-tier-header">
-                                        <h2 class="sponsor-tier-name">Gold</h2>
-                                        <p class="sponsor-tier-price">$500</p>
-                                    </div>
-                                    <p class="sponsor-tier-desc">Prime-time visibility to 200+ attendees</p>
-                                    <ul class="sponsor-tier-features">
-                                        <li>"This hour sponsored by" announcement</li>
-                                        <li>Custom ad on all screens</li>
-                                        <li>We create your call-to-action</li>
-                                        <li>Open to businesses or families</li>
-                                    </ul>
-                                    <div class="sponsor-tier-spots">3 of 4 spots available</div>
-                                </div>
-                            </div>
-                            <div class="sponsorship-cta">
-                                <h3 class="sponsorship-cta-title">Become a Sponsor</h3>
-                                <p class="sponsorship-cta-subtitle">Scan to message us on WhatsApp</p>
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/18159042925?text=Hi!%20I'm%20interested%20in%20sponsorship%20opportunities%20for%20the%20Ramadan%20Prep%20Workshop." alt="WhatsApp" class="sponsorship-qr">
-                                <p class="sponsorship-contact">Or email: <strong>director@sahwah.org</strong></p>
-                                <p class="sponsorship-mission">Your sponsorship helps us build sustainable programming</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PROMO SLIDE 4: Registration CTA -->
-                <div class="promo-slide" id="promo-slide-4">
-                    <div class="cta-container">
-                        <img src="./Event Registration.png" alt="Register" class="cta-qr">
-                        <div class="cta-text">
-                            <h2 class="cta-headline">Register Now</h2>
-                            <p class="cta-subtext">Scan the QR code to secure your spot<br>and view the full agenda on your phone.</p>
-                            <p class="cta-action">Free event • All ages welcome</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PROMO SLIDE 5: Personalized Schedule CTA -->
-                <div class="promo-slide" id="promo-slide-5">
-                    <div class="personalized-tagline">Which track are you?</div>
-                    <div class="personalized-tracks">
-                        <span class="track-pill brothers">Brothers</span>
-                        <span class="track-pill sisters">Sisters</span>
-                        <span class="track-pill youth-brothers">Youth Brothers</span>
-                        <span class="track-pill youth-sisters">Youth Sisters</span>
-                        <span class="track-pill kids">Kids</span>
-                    </div>
-                    <h2 class="personalized-headline">View Your Personalized Schedule</h2>
-                    <p class="personalized-subtext">Scan to see only the sessions relevant to you</p>
-                    <div class="personalized-qr-container">
-                        <img src="./Event Registration.png" alt="View Schedule" class="personalized-qr">
-                    </div>
-                </div>
 
                 <!-- 4:00 PM - 5:00 PM Section -->
                 <div class="time-section" id="section-4pm" data-start="16:00" data-end="17:00">
@@ -1796,69 +855,16 @@
         </div>
     </div>
 
-    <!-- Time Control Panel -->
-    <div class="time-control-panel" id="timeControlPanel">
-        <div class="time-control-header">
-            <h2 class="time-control-title">Time Control</h2>
-            <button class="time-control-close" onclick="toggleTimeControl()">&times;</button>
-        </div>
-
-        <div class="time-control-mode">
-            <button class="mode-btn active" id="liveTimeBtn" onclick="setLiveTime()">Live Time</button>
-            <button class="mode-btn" id="manualTimeBtn" onclick="setManualTime()">Manual Time</button>
-        </div>
-
-        <div class="time-slider-container" style="display: none;">
-            <div class="time-slider-label">Set starting time (clock will continue from here):</div>
-            <div class="time-slider-value" id="sliderTimeValue">4:00 PM</div>
-            <input type="range" class="time-slider" id="timeSlider" min="960" max="1230" value="960" oninput="onSliderChange(this.value)">
-            <div class="time-slider-marks">
-                <span>4:00 PM</span>
-                <span>5:00</span>
-                <span>6:00</span>
-                <span>7:00</span>
-                <span>8:00</span>
-            </div>
-            <button class="mode-btn" id="setTimeBtn" onclick="setManualStartTime()" style="margin-top: 15px; background: var(--burgundy); border-color: var(--burgundy); color: white;">Set & Start Clock</button>
-            <div id="manualTimeStatus" style="margin-top: 10px; font-size: 12px; color: var(--slate); text-align: center;"></div>
-
-            <div class="time-sections-preview">
-                <div class="time-sections-title">Schedule Sections</div>
-                <div class="time-section-item" data-start="960" data-end="1020">
-                    <div class="time-section-dot"></div>
-                    <span class="time-section-name">Main Session</span>
-                    <span class="time-section-range">4:00 – 5:00 PM</span>
-                </div>
-                <div class="time-section-item" data-start="1020" data-end="1065">
-                    <div class="time-section-dot"></div>
-                    <span class="time-section-name">Break & Prayer</span>
-                    <span class="time-section-range">5:00 – 5:45 PM</span>
-                </div>
-                <div class="time-section-item" data-start="1065" data-end="1170">
-                    <div class="time-section-dot"></div>
-                    <span class="time-section-name">Breakout Sessions</span>
-                    <span class="time-section-range">5:45 – 7:30 PM</span>
-                </div>
-                <div class="time-section-item" data-start="1170" data-end="1230">
-                    <div class="time-section-dot"></div>
-                    <span class="time-section-name">Closing Program</span>
-                    <span class="time-section-range">7:30 – 8:00+ PM</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         // ============================================
         // CONSTANTS - All magic numbers in one place
         // ============================================
         const CHICAGO_TZ = 'America/Chicago';
-        const STORAGE_KEY = 'tvDisplayManualMode';
 
         const SCHEDULE = {
             EVENT_START: 16 * 60,       // 4:00 PM = 960 minutes
             EVENT_END: 20 * 60 + 30,    // 8:30 PM = 1230 minutes
-            MAX_TIME: 23 * 60 + 59,     // 11:59 PM - max displayable time
 
             SECTIONS: {
                 MAIN_SESSION: { start: 16 * 60, end: 17 * 60 },
@@ -1876,24 +882,13 @@
                     message: 'Parents: Please pick up your children before Isha prayer' }
             },
 
-            SPONSOR: { start: 16 * 60, end: 17 * 60 },  // 4:00 - 5:00 PM
-
-            // Slide mode settings
-            SLIDE_DURATION: 13000,  // 13 seconds per slide
-            SLIDE_SECTIONS: ['promo-slide-1', 'promo-slide-2', 'promo-slide-3', 'promo-slide-4', 'promo-slide-5', 'section-4pm', 'section-5pm', 'section-breakout', 'section-closing']
+            SPONSORS: [
+                { start: 16 * 60, end: 17 * 60, name: 'Dr. Asim Mustafa', description: 'This hour is brought to you by the most trusted Muslim-owned pediatric practice in town. <strong>Dr. Asim Mustafa</strong> has been the childhood doctor of 3 generations of Muslims. Get your kids up to date on their flu vaccines and physicals.', hasQr: true },
+                { start: 17 * 60, end: 18 * 60, name: 'Dr. Mohsin Khan and Family', description: 'This hour is sponsored by <strong>Dr. Mohsin Khan and Family</strong>.', hasQr: false },
+                { start: 18 * 60, end: 19 * 60, name: 'Dr. Samee', description: 'This hour is sponsored by <strong>Dr. Samee</strong>.', hasQr: false },
+                { start: 19 * 60, end: 20 * 60, name: 'Dr. Amir and Family', description: 'This hour is sponsored by <strong>Dr. Amir and Family</strong>.', hasQr: false }
+            ]
         };
-
-        // ============================================
-        // STATE
-        // ============================================
-        let isManualTime = false;
-        let manualStartMinutes = SCHEDULE.EVENT_START;
-        let manualStartTimestamp = null;
-
-        // Slide mode state
-        let isSlideMode = false;
-        let currentSlideIndex = 0;
-        let slideTimer = null;
 
         // ============================================
         // CACHED DOM ELEMENTS (populated on load)
@@ -1909,24 +904,11 @@
                     sections: document.querySelectorAll('.time-section'),
                     cards: document.querySelectorAll('.schedule-card[data-start]'),
                     unifiedItems: document.querySelectorAll('.unified-item[data-start]'),
-                    sectionPreviewItems: document.querySelectorAll('.time-section-item'),
                     scrollContent: document.getElementById('scrollContent'),
                     scrollContainer: document.querySelector('.scroll-container'),
                     currentTime: document.getElementById('currentTime'),
                     headerAlert: document.getElementById('headerAlert'),
-                    headerSponsor: document.getElementById('headerSponsor'),
-                    timeControlPanel: document.getElementById('timeControlPanel'),
-                    liveTimeBtn: document.getElementById('liveTimeBtn'),
-                    manualTimeBtn: document.getElementById('manualTimeBtn'),
-                    sliderContainer: document.querySelector('.time-slider-container'),
-                    sliderTimeValue: document.getElementById('sliderTimeValue'),
-                    manualTimeStatus: document.getElementById('manualTimeStatus'),
-                    setTimeBtn: document.getElementById('setTimeBtn'),
-                    // Slide mode elements
-                    headerTitle: document.getElementById('headerTitle'),
-                    headerRight: document.getElementById('headerRight'),
-                    slideModeInfo: document.getElementById('slideModeInfo'),
-                    eventDate: document.getElementById('eventDate')
+                    headerSponsor: document.getElementById('headerSponsor')
                 };
             }
             return cachedElements;
@@ -1936,23 +918,6 @@
         // TIME FUNCTIONS
         // ============================================
         function getChicagoTime() {
-            if (isManualTime && manualStartTimestamp) {
-                const elapsed = Date.now() - manualStartTimestamp;
-                const elapsedMinutes = Math.floor(elapsed / 60000);
-                const elapsedSeconds = Math.floor((elapsed % 60000) / 1000);
-
-                // Cap at max time to prevent overflow (e.g., "25:30 PM")
-                let totalMinutes = Math.min(
-                    manualStartMinutes + elapsedMinutes,
-                    SCHEDULE.MAX_TIME
-                );
-
-                const hours = Math.floor(totalMinutes / 60);
-                const minutes = totalMinutes % 60;
-
-                return { hours, minutes, totalMinutes, seconds: elapsedSeconds };
-            }
-
             const now = new Date();
             const chicagoTime = new Date(now.toLocaleString('en-US', { timeZone: CHICAGO_TZ }));
             const hours = chicagoTime.getHours();
@@ -1981,241 +946,7 @@
         }
 
         // ============================================
-        // LOCAL STORAGE PERSISTENCE
-        // ============================================
-        function saveManualState() {
-            if (isManualTime && manualStartTimestamp) {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify({
-                    isManualTime,
-                    manualStartMinutes,
-                    manualStartTimestamp
-                }));
-            } else {
-                localStorage.removeItem(STORAGE_KEY);
-            }
-        }
-
-        function restoreManualState() {
-            try {
-                const saved = localStorage.getItem(STORAGE_KEY);
-                if (!saved) return false;
-
-                const state = JSON.parse(saved);
-                if (state.isManualTime && state.manualStartTimestamp) {
-                    isManualTime = state.isManualTime;
-                    manualStartMinutes = state.manualStartMinutes;
-                    manualStartTimestamp = state.manualStartTimestamp;
-                    return true;
-                }
-            } catch (e) {
-                console.warn('Could not restore manual time state:', e);
-                localStorage.removeItem(STORAGE_KEY);
-            }
-            return false;
-        }
-
-        // ============================================
-        // TIME CONTROL PANEL FUNCTIONS
-        // ============================================
-        function toggleTimeControl() {
-            const el = getCachedElements();
-            el.timeControlPanel.classList.toggle('visible');
-        }
-
-        function setLiveTime() {
-            isManualTime = false;
-            manualStartTimestamp = null;
-            saveManualState();
-
-            const el = getCachedElements();
-            el.liveTimeBtn.classList.add('active');
-            el.manualTimeBtn.classList.remove('active');
-            el.currentTime.classList.remove('manual-mode');
-            el.sliderContainer.style.display = 'none';
-            el.manualTimeStatus.textContent = '';
-            el.setTimeBtn.textContent = 'Set & Start Clock';
-
-            updateAll();
-        }
-
-        function setManualTime() {
-            const el = getCachedElements();
-            el.manualTimeBtn.classList.add('active');
-            el.liveTimeBtn.classList.remove('active');
-            el.currentTime.classList.add('manual-mode');
-            el.sliderContainer.style.display = 'flex';
-            el.manualTimeStatus.textContent = 'Select a time and click "Set & Start Clock"';
-        }
-
-        function setManualStartTime() {
-            isManualTime = true;
-            manualStartTimestamp = Date.now();
-            saveManualState();
-
-            const hours = Math.floor(manualStartMinutes / 60);
-            const minutes = manualStartMinutes % 60;
-
-            const el = getCachedElements();
-            el.manualTimeStatus.textContent = `Clock running from ${formatTime(hours, minutes)}`;
-            el.setTimeBtn.textContent = 'Update Start Time';
-
-            updateAll();
-        }
-
-        function onSliderChange(value) {
-            manualStartMinutes = parseInt(value, 10) || SCHEDULE.EVENT_START;
-            const hours = Math.floor(manualStartMinutes / 60);
-            const minutes = manualStartMinutes % 60;
-
-            const el = getCachedElements();
-            el.sliderTimeValue.textContent = formatTime(hours, minutes);
-            updateSectionPreview(manualStartMinutes);
-        }
-
-        function updateSectionPreview(totalMins) {
-            const el = getCachedElements();
-            el.sectionPreviewItems.forEach(item => {
-                const start = parseInt(item.dataset.start, 10) || 0;
-                const end = parseInt(item.dataset.end, 10) || 0;
-                item.classList.remove('active', 'past');
-
-                if (totalMins >= start && totalMins < end) {
-                    item.classList.add('active');
-                } else if (totalMins >= end) {
-                    item.classList.add('past');
-                }
-            });
-        }
-
-        // ============================================
-        // SLIDE MODE FUNCTIONS
-        // ============================================
-        function toggleSlideMode() {
-            isSlideMode = !isSlideMode;
-            const el = getCachedElements();
-
-            if (isSlideMode) {
-                // Enter slide mode
-                el.scrollContainer.classList.add('slide-mode');
-                el.headerRight.classList.add('slide-mode');
-                el.slideModeInfo.classList.add('visible');
-
-                // Hide sponsor in slide mode
-                el.headerSponsor.classList.remove('visible');
-
-                // Clear all time-based highlights
-                clearAllHighlights();
-
-                // Update date to show current date
-                updateCurrentDate();
-
-                // Start from first slide
-                currentSlideIndex = 0;
-                showSlide(currentSlideIndex);
-                startSlideTimer();
-            } else {
-                // Exit slide mode
-                el.scrollContainer.classList.remove('slide-mode');
-                el.headerRight.classList.remove('slide-mode');
-                el.slideModeInfo.classList.remove('visible');
-
-                // Stop timers
-                stopSlideTimer();
-
-                // Remove slide-visible class from all sections and promo slides
-                el.sections.forEach(section => {
-                    section.classList.remove('slide-visible');
-                });
-                document.querySelectorAll('.promo-slide').forEach(slide => {
-                    slide.classList.remove('slide-visible');
-                });
-
-                // Return to normal time-based display
-                updateAll();
-            }
-        }
-
-        function updateCurrentDate() {
-            const el = getCachedElements();
-            const now = new Date();
-            const options = { month: 'long', day: 'numeric', year: 'numeric', timeZone: CHICAGO_TZ };
-            const dateStr = now.toLocaleDateString('en-US', options);
-            // Format: "January 22, 2026" -> "January 22nd, 2026"
-            const day = now.getDate();
-            const suffix = getDaySuffix(day);
-            const formatted = dateStr.replace(/(\d+),/, `$1${suffix},`);
-            el.eventDate.textContent = formatted;
-        }
-
-        function getDaySuffix(day) {
-            if (day >= 11 && day <= 13) return 'th';
-            switch (day % 10) {
-                case 1: return 'st';
-                case 2: return 'nd';
-                case 3: return 'rd';
-                default: return 'th';
-            }
-        }
-
-        function showSlide(index) {
-            const el = getCachedElements();
-            const sectionIds = SCHEDULE.SLIDE_SECTIONS;
-
-            // Hide all sections and promo slides
-            el.sections.forEach(section => {
-                section.classList.remove('slide-visible');
-            });
-            document.querySelectorAll('.promo-slide').forEach(slide => {
-                slide.classList.remove('slide-visible');
-            });
-
-            // Show current slide
-            const currentSection = document.getElementById(sectionIds[index]);
-            if (currentSection) {
-                currentSection.classList.add('slide-visible');
-            }
-        }
-
-        function nextSlide() {
-            currentSlideIndex = (currentSlideIndex + 1) % SCHEDULE.SLIDE_SECTIONS.length;
-            showSlide(currentSlideIndex);
-            // Reset timer when manually navigating
-            if (isSlideMode) startSlideTimer();
-        }
-
-        function prevSlide() {
-            currentSlideIndex = (currentSlideIndex - 1 + SCHEDULE.SLIDE_SECTIONS.length) % SCHEDULE.SLIDE_SECTIONS.length;
-            showSlide(currentSlideIndex);
-            // Reset timer when manually navigating
-            if (isSlideMode) startSlideTimer();
-        }
-
-        function handleKeyNavigation(e) {
-            if (!isSlideMode) return;
-
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                e.preventDefault();
-                nextSlide();
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                e.preventDefault();
-                prevSlide();
-            }
-        }
-
-        function startSlideTimer() {
-            stopSlideTimer(); // Clear any existing timers
-            slideTimer = setInterval(nextSlide, SCHEDULE.SLIDE_DURATION);
-        }
-
-        function stopSlideTimer() {
-            if (slideTimer) {
-                clearInterval(slideTimer);
-                slideTimer = null;
-            }
-        }
-
-        // ============================================
-        // UI UPDATE FUNCTIONS (split for clarity)
+        // UI UPDATE FUNCTIONS
         // ============================================
         function updateClock() {
             const { hours, minutes } = getChicagoTime();
@@ -2224,9 +955,6 @@
         }
 
         function updateSections(totalMinutes) {
-            // In slide mode, don't apply time-based styling
-            if (isSlideMode) return;
-
             const el = getCachedElements();
             let newActiveSection = null;
 
@@ -2262,12 +990,6 @@
         }
 
         function updateCards(totalMinutes) {
-            // In slide mode, don't highlight anything
-            if (isSlideMode) {
-                clearAllHighlights();
-                return;
-            }
-
             const el = getCachedElements();
             const newActiveCards = new Set();
 
@@ -2290,9 +1012,6 @@
         }
 
         function updateUnifiedItems(totalMinutes) {
-            // In slide mode, don't highlight anything
-            if (isSlideMode) return;
-
             const el = getCachedElements();
             const newActiveItems = new Set();
 
@@ -2314,46 +1033,28 @@
             previousActiveItems = newActiveItems;
         }
 
-        function clearAllHighlights() {
-            const el = getCachedElements();
-
-            // Clear card highlights and badges
-            el.cards.forEach(card => {
-                card.classList.remove('active');
-                const badge = card.querySelector('.now-badge');
-                if (badge) badge.remove();
-            });
-
-            // Clear unified item highlights and badges
-            el.unifiedItems.forEach(item => {
-                item.classList.remove('active');
-                const badge = item.querySelector('.now-badge');
-                if (badge) badge.remove();
-            });
-
-            // Clear section highlights
-            el.sections.forEach(section => {
-                section.classList.remove('active', 'past');
-            });
-
-            previousActiveCards = new Set();
-            previousActiveItems = new Set();
-        }
-
         function updateSponsor(totalMinutes) {
-            // Don't show sponsor in slide mode
-            if (isSlideMode) return;
-
             const el = getCachedElements();
-            const isVisible = totalMinutes >= SCHEDULE.SPONSOR.start &&
-                              totalMinutes < SCHEDULE.SPONSOR.end;
-            el.headerSponsor.classList.toggle('visible', isVisible);
+            const activeSponsor = SCHEDULE.SPONSORS.find(s =>
+                totalMinutes >= s.start && totalMinutes < s.end
+            );
+
+            if (activeSponsor) {
+                el.headerSponsor.classList.add('visible');
+                const textContainer = el.headerSponsor.querySelector('.sponsor-text-container');
+                const qrContainer = el.headerSponsor.querySelector('.sponsor-qr-container');
+                if (textContainer) {
+                    textContainer.innerHTML = activeSponsor.description;
+                }
+                if (qrContainer) {
+                    qrContainer.style.display = activeSponsor.hasQr ? 'flex' : 'none';
+                }
+            } else {
+                el.headerSponsor.classList.remove('visible');
+            }
         }
 
         function autoScroll() {
-            // Don't auto-scroll in slide mode
-            if (isSlideMode) return;
-
             const el = getCachedElements();
             const activeSection = document.querySelector('.time-section.active');
 
@@ -2422,38 +1123,8 @@
         // INITIALIZATION
         // ============================================
         function initializeApp() {
-            // Cache DOM elements first
             getCachedElements();
-
-            // Set up click handlers
-            const el = getCachedElements();
-            el.currentTime.addEventListener('click', toggleTimeControl);
-            el.headerTitle.addEventListener('click', toggleSlideMode);
-
-            // Keyboard navigation for slide mode
-            document.addEventListener('keydown', handleKeyNavigation);
-
-            // Restore manual mode if saved
-            if (restoreManualState()) {
-                el.manualTimeBtn.classList.add('active');
-                el.liveTimeBtn.classList.remove('active');
-                el.currentTime.classList.add('manual-mode');
-                el.sliderContainer.style.display = 'flex';
-
-                const hours = Math.floor(manualStartMinutes / 60);
-                const minutes = manualStartMinutes % 60;
-                el.sliderTimeValue.textContent = formatTime(hours, minutes);
-                el.manualTimeStatus.textContent = `Clock running from ${formatTime(hours, minutes)}`;
-                el.setTimeBtn.textContent = 'Update Start Time';
-
-                // Update slider position
-                document.getElementById('timeSlider').value = manualStartMinutes;
-            }
-
-            // Initial update
             updateAll();
-
-            // Start update loop
             setInterval(updateAll, 1000);
         }
 
